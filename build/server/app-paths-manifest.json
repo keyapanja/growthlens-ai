@@ -1,0 +1,6 @@
+{
+  "/api/reports/[id]/pdf/route": "app/api/reports/[id]/pdf/route.js",
+  "/share/[shareId]/page": "app/share/[shareId]/page.js",
+  "/page": "app/page.js",
+  "/report/[id]/page": "app/report/[id]/page.js"
+}
