@@ -1,4 +1,6 @@
 import { sql } from "@vercel/postgres";
+import fs from "fs/promises";
+import path from "path";
 import { StoredReport } from "@/lib/types";
 
 type ReportRow = {
@@ -27,8 +29,8 @@ const usePostgres = Boolean(
 );
 
 let postgresSchemaReady: Promise<void> | null = null;
-let sqliteDbInstance: any = null;
-let sqliteSchemaReady = false;
+const localDataDir = path.join(process.cwd(), "data");
+const localReportsPath = path.join(localDataDir, "growthlens-reports.json");
 
 function mapRow(row: ReportRow): StoredReport {
   const pagespeedJson = row.pagespeedjson ?? row.pagespeedJson;
@@ -84,44 +86,32 @@ async function ensurePostgresSchema() {
   await postgresSchemaReady;
 }
 
-function getSqliteDb() {
-  if (sqliteDbInstance) {
-    return sqliteDbInstance;
+async function readLocalReports(): Promise<StoredReport[]> {
+  try {
+    const file = await fs.readFile(localReportsPath, "utf8");
+    const parsed = JSON.parse(file) as { reports?: StoredReport[] } | StoredReport[];
+
+    if (Array.isArray(parsed)) {
+      return parsed;
+    }
+
+    return Array.isArray(parsed.reports) ? parsed.reports : [];
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+      return [];
+    }
+
+    throw error;
   }
-
-  // Keep local development simple when no Postgres connection is configured.
-  const Database = require("better-sqlite3");
-  const path = require("path");
-  const fs = require("fs");
-  const dataDir = path.join(process.cwd(), "data");
-  const dbPath = path.join(dataDir, "growthlens.db");
-
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
-  }
-
-  sqliteDbInstance = new Database(dbPath);
-  return sqliteDbInstance;
 }
 
-function ensureSqliteSchema() {
-  if (sqliteSchemaReady) return;
-
-  const db = getSqliteDb();
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS reports (
-      id TEXT PRIMARY KEY,
-      shareId TEXT NOT NULL UNIQUE,
-      url TEXT NOT NULL,
-      competitorUrl TEXT,
-      createdAt TEXT NOT NULL,
-      updatedAt TEXT NOT NULL,
-      pagespeedJson TEXT NOT NULL,
-      competitorPagespeedJson TEXT,
-      aiReportJson TEXT NOT NULL
-    );
-  `);
-  sqliteSchemaReady = true;
+async function writeLocalReports(reports: StoredReport[]) {
+  await fs.mkdir(localDataDir, { recursive: true });
+  await fs.writeFile(
+    localReportsPath,
+    JSON.stringify({ reports }, null, 2),
+    "utf8"
+  );
 }
 
 export async function saveReport(report: StoredReport) {
@@ -154,39 +144,16 @@ export async function saveReport(report: StoredReport) {
     return;
   }
 
-  ensureSqliteSchema();
-  const db = getSqliteDb();
-  const stmt = db.prepare(`
-    INSERT INTO reports (
-      id, shareId, url, competitorUrl, createdAt, updatedAt,
-      pagespeedJson, competitorPagespeedJson, aiReportJson
-    ) VALUES (
-      @id, @shareId, @url, @competitorUrl, @createdAt, @updatedAt,
-      @pagespeedJson, @competitorPagespeedJson, @aiReportJson
-    )
-    ON CONFLICT(id) DO UPDATE SET
-      shareId = excluded.shareId,
-      url = excluded.url,
-      competitorUrl = excluded.competitorUrl,
-      updatedAt = excluded.updatedAt,
-      pagespeedJson = excluded.pagespeedJson,
-      competitorPagespeedJson = excluded.competitorPagespeedJson,
-      aiReportJson = excluded.aiReportJson
-  `);
+  const reports = await readLocalReports();
+  const index = reports.findIndex((item) => item.id === report.id);
 
-  stmt.run({
-    id: report.id,
-    shareId: report.shareId,
-    url: report.url,
-    competitorUrl: report.competitorUrl ?? null,
-    createdAt: report.createdAt,
-    updatedAt: report.updatedAt,
-    pagespeedJson: JSON.stringify(report.pagespeed),
-    competitorPagespeedJson: report.competitorPagespeed
-      ? JSON.stringify(report.competitorPagespeed)
-      : null,
-    aiReportJson: JSON.stringify(report.aiReport)
-  });
+  if (index >= 0) {
+    reports[index] = report;
+  } else {
+    reports.push(report);
+  }
+
+  await writeLocalReports(reports);
 }
 
 export async function getReportById(id: string) {
@@ -211,10 +178,8 @@ export async function getReportById(id: string) {
     return rows[0] ? mapRow(rows[0]) : null;
   }
 
-  ensureSqliteSchema();
-  const db = getSqliteDb();
-  const row = db.prepare("SELECT * FROM reports WHERE id = ?").get(id) as ReportRow | undefined;
-  return row ? mapRow(row) : null;
+  const reports = await readLocalReports();
+  return reports.find((report) => report.id === id) ?? null;
 }
 
 export async function getReportByShareId(shareId: string) {
@@ -239,10 +204,8 @@ export async function getReportByShareId(shareId: string) {
     return rows[0] ? mapRow(rows[0]) : null;
   }
 
-  ensureSqliteSchema();
-  const db = getSqliteDb();
-  const row = db.prepare("SELECT * FROM reports WHERE shareId = ?").get(shareId) as ReportRow | undefined;
-  return row ? mapRow(row) : null;
+  const reports = await readLocalReports();
+  return reports.find((report) => report.shareId === shareId) ?? null;
 }
 
 export async function getRecentReports(limit = 6): Promise<StoredReport[]> {
@@ -267,10 +230,8 @@ export async function getRecentReports(limit = 6): Promise<StoredReport[]> {
     return rows.map(mapRow);
   }
 
-  ensureSqliteSchema();
-  const db = getSqliteDb();
-  return db
-    .prepare("SELECT * FROM reports ORDER BY datetime(updatedAt) DESC LIMIT ?")
-    .all(limit)
-    .map(mapRow);
+  const reports = await readLocalReports();
+  return reports
+    .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+    .slice(0, limit);
 }

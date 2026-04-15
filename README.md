@@ -9,7 +9,7 @@ GrowthLens AI is a full-stack SaaS MVP built with Next.js App Router. It analyze
 - Tailwind CSS
 - Framer Motion
 - Recharts
-- Vercel Postgres-compatible storage in production, with SQLite fallback for local development
+- Vercel Postgres-compatible storage in production, with a local JSON fallback for development
 - OpenRouter API for AI insights
 - Google PageSpeed Insights API for performance data
 - `@react-pdf/renderer` for robust PDF generation
@@ -60,7 +60,7 @@ npm run dev
 - `app/api/analyze/route.ts` orchestrates the analysis pipeline
 - `lib/pagespeed.ts` normalizes URLs and fetches mobile/desktop Lighthouse data
 - `lib/openrouter.ts` requests strict JSON and falls back gracefully if AI is unavailable
-- `lib/db.ts` persists reports in Postgres when `POSTGRES_URL` is configured, and falls back to `data/growthlens.db` locally
+- `lib/db.ts` persists reports in Postgres when `POSTGRES_URL` is configured, and falls back to `data/growthlens-reports.json` locally
 - `components/report/report-client.tsx` powers the interactive dashboard
 - `app/api/reports/[id]/pdf/route.tsx` renders PDFs server-side with React PDF
 
