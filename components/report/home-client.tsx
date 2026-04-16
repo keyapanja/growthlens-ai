@@ -54,44 +54,8 @@ const benefitItems = [
   }
 ];
 
-const demoReports = [
-  {
-    id: "demo-nike",
-    href: "#",
-    score: 94,
-    url: "nike.com/running",
-    processedAt: "Processed: Oct 12, 14:30 EST",
-    status: "OPTIMIZED",
-    statusClassName: "text-[#a68cff]",
-    scoreClassName: "text-[#81ecff]",
-    tags: ["E-COMMERCE", "BRANDING"]
-  },
-  {
-    id: "demo-linear",
-    href: "#",
-    score: 95,
-    url: "linear.app",
-    processedAt: "Processed: Oct 12, 12:15 EST",
-    status: "PEAK PERFORMANCE",
-    statusClassName: "text-[#81ecff]",
-    scoreClassName: "text-[#a68cff]",
-    tags: ["SAAS", "UX DESIGN"]
-  },
-  {
-    id: "demo-bakery",
-    href: "#",
-    score: 64,
-    url: "local-bakery.shop",
-    processedAt: "Processed: Oct 11, 09:45 EST",
-    status: "AT RISK",
-    statusClassName: "text-[#ff716c]",
-    scoreClassName: "text-[#ff716c]",
-    tags: ["LOCAL BUSINESS", "SEO GAP"]
-  }
-];
-
 function getRecentAnalysisCards(recentReports: StoredReport[]) {
-  if (!recentReports.length) return demoReports;
+  if (!recentReports.length) return [];
 
   return recentReports.map((report) => {
     const score = report.aiReport.growth_score;
@@ -121,6 +85,7 @@ export function HomeClient({ recentReports }: { recentReports: StoredReport[] })
   const [showAllHistory, setShowAllHistory] = useState(false);
   const [isPending, startTransition] = useTransition();
   const reports = getRecentAnalysisCards(recentReports);
+  const hasExpandableHistory = reports.length > 3;
   const visibleReports = showAllHistory ? reports : reports.slice(0, 3);
 
   async function handleAnalyze(event: React.FormEvent) {
@@ -162,7 +127,7 @@ export function HomeClient({ recentReports }: { recentReports: StoredReport[] })
   return (
     <>
       <main>
-        <section className="relative overflow-hidden px-6 pb-24 pt-32">
+        <section id="analyze" className="relative overflow-hidden px-6 pb-24 pt-32">
           <div className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-full -translate-x-1/2 bg-gradient-to-b from-[#81ecff]/10 to-transparent" />
           <div className="relative z-10 mx-auto max-w-7xl text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-[#a68cff]/30 bg-[#591adc]/20 px-4 py-1.5">
@@ -346,60 +311,83 @@ export function HomeClient({ recentReports }: { recentReports: StoredReport[] })
                   Complete website audit history from previous searches.
                 </p>
               </div>
-              <a
-                href="#history"
-                onClick={(event) => {
-                  event.preventDefault();
-                  setShowAllHistory((current) => !current);
-                }}
-                className="group hidden items-center gap-2 font-headline text-xs font-extrabold uppercase tracking-widest text-[#81ecff] transition-colors hover:text-[#00d4ec] md:flex"
-              >
-                {showAllHistory ? "Show Less" : "See History"}
-                <ArrowRight
-                  className={`h-4 w-4 transition-transform ${
-                    showAllHistory ? "-rotate-90" : "group-hover:translate-x-1"
-                  }`}
-                />
-              </a>
+              {hasExpandableHistory ? (
+                <a
+                  href="#history"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    setShowAllHistory((current) => !current);
+                  }}
+                  className="group hidden items-center gap-2 font-headline text-xs font-extrabold uppercase tracking-widest text-[#81ecff] transition-colors hover:text-[#00d4ec] md:flex"
+                >
+                  {showAllHistory ? "Show Less" : "See History"}
+                  <ArrowRight
+                    className={`h-4 w-4 transition-transform ${
+                      showAllHistory ? "-rotate-90" : "group-hover:translate-x-1"
+                    }`}
+                  />
+                </a>
+              ) : null}
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {visibleReports.map((report) => {
-                const card = (
-                  <div className="group cursor-pointer rounded-2xl border border-[#44484f]/15 bg-[#1b2028] p-6 transition-all hover:border-[#81ecff]/40 hover:bg-[#20262f]">
-                    <div className="mb-6 flex items-start justify-between">
-                      <div
-                        className={`flex h-12 w-12 items-center justify-center rounded-xl border border-[#44484f]/20 bg-black font-headline text-3xl font-black ${report.scoreClassName}`}
-                      >
-                        {report.score}
-                      </div>
-                      <div className="text-right">
-                        <div className="font-label text-[10px] font-bold uppercase tracking-widest text-[#b8bcc5]">
-                          Growth Score
-                        </div>
-                        <div className={`text-xs font-extrabold ${report.statusClassName}`}>{report.status}</div>
-                      </div>
-                    </div>
-                    <div className="mb-6">
-                      <div className="truncate font-headline text-lg font-bold text-[#f8faff]">{report.url}</div>
-                      <div className="text-xs font-medium text-[#b8bcc5]">{report.processedAt}</div>
-                    </div>
-                    <div className="flex gap-2">
-                      {report.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-md border border-[#44484f]/10 bg-black px-2 py-1 font-label text-[10px] font-bold uppercase tracking-wider text-[#b8bcc5]"
+            {visibleReports.length ? (
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {visibleReports.map((report) => {
+                  const card = (
+                    <div className="group cursor-pointer rounded-2xl border border-[#44484f]/15 bg-[#1b2028] p-6 transition-all hover:border-[#81ecff]/40 hover:bg-[#20262f]">
+                      <div className="mb-6 flex items-start justify-between">
+                        <div
+                          className={`flex h-12 w-12 items-center justify-center rounded-xl border border-[#44484f]/20 bg-black font-headline text-3xl font-black ${report.scoreClassName}`}
                         >
-                          {tag}
-                        </span>
-                      ))}
+                          {report.score}
+                        </div>
+                        <div className="text-right">
+                          <div className="font-label text-[10px] font-bold uppercase tracking-widest text-[#b8bcc5]">
+                            Growth Score
+                          </div>
+                          <div className={`text-xs font-extrabold ${report.statusClassName}`}>{report.status}</div>
+                        </div>
+                      </div>
+                      <div className="mb-6">
+                        <div className="truncate font-headline text-lg font-bold text-[#f8faff]">{report.url}</div>
+                        <div className="text-xs font-medium text-[#b8bcc5]">{report.processedAt}</div>
+                      </div>
+                      <div className="flex gap-2">
+                        {report.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-md border border-[#44484f]/10 bg-black px-2 py-1 font-label text-[10px] font-bold uppercase tracking-wider text-[#b8bcc5]"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                );
+                  );
 
-                return report.href === "#" ? <div key={report.id}>{card}</div> : <a key={report.id} href={report.href}>{card}</a>;
-              })}
-            </div>
+                  return report.href === "#" ? (
+                    <div key={report.id}>{card}</div>
+                  ) : (
+                    <a key={report.id} href={report.href}>
+                      {card}
+                    </a>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="rounded-2xl border border-dashed border-[#44484f]/25 bg-[#1b2028]/60 p-10 text-center">
+                <h3 className="font-headline text-2xl font-bold text-[#f8faff]">Start analyzing your first website</h3>
+                <p className="mt-3 text-sm font-medium text-[#b8bcc5]">
+                  Run your first audit to build a searchable history of growth reports right here.
+                </p>
+                <a
+                  href="#analyze-form"
+                  className="mt-6 inline-flex rounded-full border border-[#81ecff]/35 bg-[#81ecff]/10 px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] text-[#81ecff] transition hover:bg-[#81ecff]/15"
+                >
+                  Analyze a website
+                </a>
+              </div>
+            )}
           </div>
         </section>
       </main>
