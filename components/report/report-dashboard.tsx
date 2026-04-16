@@ -538,7 +538,7 @@ export function ReportDashboard({ initialReport }: { initialReport: StoredReport
                 <h3 className="font-headline text-[32px] font-bold tracking-tight">Competitor Gap Analysis</h3>
                 <div className="rounded-3xl border border-[#44484f]/10 bg-[#1b2028] p-8">
                   <div className="mb-6 flex items-center gap-3"><div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#ff716c]/10 text-[#ff716c]"><Sparkles className="h-5 w-5" /></div><p className="font-label text-[12px] uppercase tracking-[0.2em] text-[#a8abb3]">Executive Summary</p></div>
-                  <p className="max-w-5xl text-xl font-semibold leading-relaxed text-[#f1f3fc]">{buildCompetitorSummary(report)}</p>
+                  <p className="max-w-5xl text-[15px] font-normal leading-6 text-[#dbe3ee]">{buildCompetitorSummary(report)}</p>
                 </div>
               </div>
             </section> : null}
