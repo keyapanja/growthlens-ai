@@ -10,6 +10,8 @@ type ReportRow = {
   url: string;
   competitorurl: string | null;
   competitorUrl?: string | null;
+  competitorurlsjson?: string | null;
+  competitorUrlsJson?: string | null;
   createdat: string;
   createdAt?: string;
   updatedat: string;
@@ -18,6 +20,8 @@ type ReportRow = {
   pagespeedJson?: string;
   competitorpagespeedjson: string | null;
   competitorPagespeedJson?: string | null;
+  competitorsjson?: string | null;
+  competitorsJson?: string | null;
   aireportjson: string;
   aiReportJson?: string;
 };
@@ -41,6 +45,8 @@ function mapRow(row: ReportRow): StoredReport {
   const pagespeedJson = row.pagespeedjson ?? row.pagespeedJson;
   const competitorPagespeedJson =
     row.competitorpagespeedjson ?? row.competitorPagespeedJson ?? null;
+  const competitorUrlsJson = row.competitorurlsjson ?? row.competitorUrlsJson ?? null;
+  const competitorsJson = row.competitorsjson ?? row.competitorsJson ?? null;
   const aiReportJson = row.aireportjson ?? row.aiReportJson;
 
   return {
@@ -48,6 +54,13 @@ function mapRow(row: ReportRow): StoredReport {
     shareId: row.shareid ?? row.shareId ?? "",
     url: row.url,
     competitorUrl: row.competitorurl ?? row.competitorUrl ?? null,
+    competitorUrls: competitorUrlsJson
+      ? typeof competitorUrlsJson === "string"
+        ? JSON.parse(competitorUrlsJson)
+        : (competitorUrlsJson as never)
+      : row.competitorurl ?? row.competitorUrl
+        ? [row.competitorurl ?? row.competitorUrl ?? ""].filter(Boolean)
+        : [],
     createdAt: row.createdat ?? row.createdAt ?? "",
     updatedAt: row.updatedat ?? row.updatedAt ?? "",
     pagespeed:
@@ -57,6 +70,21 @@ function mapRow(row: ReportRow): StoredReport {
         ? JSON.parse(competitorPagespeedJson)
         : (competitorPagespeedJson as never)
       : null,
+    competitors: competitorsJson
+      ? typeof competitorsJson === "string"
+        ? JSON.parse(competitorsJson)
+        : (competitorsJson as never)
+      : competitorPagespeedJson && (row.competitorurl ?? row.competitorUrl)
+        ? [
+            {
+              url: row.competitorurl ?? row.competitorUrl ?? "",
+              pagespeed:
+                typeof competitorPagespeedJson === "string"
+                  ? JSON.parse(competitorPagespeedJson)
+                  : (competitorPagespeedJson as never)
+            }
+          ]
+        : [],
     aiReport:
       typeof aiReportJson === "string" ? JSON.parse(aiReportJson) : (aiReportJson as never)
   };
@@ -73,13 +101,18 @@ async function ensurePostgresSchema() {
           shareId TEXT NOT NULL UNIQUE,
           url TEXT NOT NULL,
           competitorUrl TEXT,
+          competitorUrlsJson JSONB,
           createdAt TEXT NOT NULL,
           updatedAt TEXT NOT NULL,
           pagespeedJson JSONB NOT NULL,
           competitorPagespeedJson JSONB,
+          competitorsJson JSONB,
           aiReportJson JSONB NOT NULL
         );
       `;
+
+      await db.sql`ALTER TABLE reports ADD COLUMN IF NOT EXISTS competitorUrlsJson JSONB;`;
+      await db.sql`ALTER TABLE reports ADD COLUMN IF NOT EXISTS competitorsJson JSONB;`;
 
       await db.sql`
         CREATE INDEX IF NOT EXISTS reports_updatedAt_idx
@@ -136,26 +169,30 @@ export async function saveReport(report: StoredReport) {
     await ensurePostgresSchema();
     await db.sql`
       INSERT INTO reports (
-        id, shareId, url, competitorUrl, createdAt, updatedAt,
-        pagespeedJson, competitorPagespeedJson, aiReportJson
+        id, shareId, url, competitorUrl, competitorUrlsJson, createdAt, updatedAt,
+        pagespeedJson, competitorPagespeedJson, competitorsJson, aiReportJson
       ) VALUES (
         ${report.id},
         ${report.shareId},
         ${report.url},
         ${report.competitorUrl ?? null},
+        ${JSON.stringify(report.competitorUrls ?? [])}::jsonb,
         ${report.createdAt},
         ${report.updatedAt},
         ${JSON.stringify(report.pagespeed)}::jsonb,
         ${report.competitorPagespeed ? JSON.stringify(report.competitorPagespeed) : null}::jsonb,
+        ${report.competitors?.length ? JSON.stringify(report.competitors) : null}::jsonb,
         ${JSON.stringify(report.aiReport)}::jsonb
       )
       ON CONFLICT (id) DO UPDATE SET
         shareId = EXCLUDED.shareId,
         url = EXCLUDED.url,
         competitorUrl = EXCLUDED.competitorUrl,
+        competitorUrlsJson = EXCLUDED.competitorUrlsJson,
         updatedAt = EXCLUDED.updatedAt,
         pagespeedJson = EXCLUDED.pagespeedJson,
         competitorPagespeedJson = EXCLUDED.competitorPagespeedJson,
+        competitorsJson = EXCLUDED.competitorsJson,
         aiReportJson = EXCLUDED.aiReportJson;
     `;
     return;
@@ -182,10 +219,12 @@ export async function getReportById(id: string) {
         shareId,
         url,
         competitorUrl,
+        competitorUrlsJson::text AS competitorUrlsJson,
         createdAt,
         updatedAt,
         pagespeedJson::text AS pagespeedJson,
         competitorPagespeedJson::text AS competitorPagespeedJson,
+        competitorsJson::text AS competitorsJson,
         aiReportJson::text AS aiReportJson
       FROM reports
       WHERE id = ${id}
@@ -208,10 +247,12 @@ export async function getReportByShareId(shareId: string) {
         shareId,
         url,
         competitorUrl,
+        competitorUrlsJson::text AS competitorUrlsJson,
         createdAt,
         updatedAt,
         pagespeedJson::text AS pagespeedJson,
         competitorPagespeedJson::text AS competitorPagespeedJson,
+        competitorsJson::text AS competitorsJson,
         aiReportJson::text AS aiReportJson
       FROM reports
       WHERE shareId = ${shareId}
@@ -234,10 +275,12 @@ export async function getRecentReports(limit = 6): Promise<StoredReport[]> {
         shareId,
         url,
         competitorUrl,
+        competitorUrlsJson::text AS competitorUrlsJson,
         createdAt,
         updatedAt,
         pagespeedJson::text AS pagespeedJson,
         competitorPagespeedJson::text AS competitorPagespeedJson,
+        competitorsJson::text AS competitorsJson,
         aiReportJson::text AS aiReportJson
       FROM reports
       ORDER BY updatedAt DESC

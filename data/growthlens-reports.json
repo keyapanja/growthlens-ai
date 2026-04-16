@@ -281,6 +281,1110 @@
           "contentAngle": "Lead with \"When You Get Unstuck Now With Rick\" and support it with simple proof points, a clear call to action, and a faster page experience."
         }
       }
+    },
+    {
+      "id": "NO0PwY2Vnn",
+      "shareId": "KVabwK33U-uPud",
+      "url": "https://rickyvanovich.com/",
+      "competitorUrl": null,
+      "competitorUrls": [],
+      "createdAt": "2026-04-16T06:07:46.792Z",
+      "updatedAt": "2026-04-16T06:07:46.792Z",
+      "pagespeed": {
+        "url": "https://rickyvanovich.com/",
+        "fetchedAt": "2026-04-16T06:08:12.480Z",
+        "mobile": {
+          "strategy": "mobile",
+          "overallScore": 72,
+          "categories": {
+            "performance": {
+              "label": "Performance",
+              "score": 60
+            },
+            "accessibility": {
+              "label": "Accessibility",
+              "score": 79
+            },
+            "best_practices": {
+              "label": "Best Practices",
+              "score": 92
+            },
+            "seo": {
+              "label": "SEO",
+              "score": 92
+            }
+          },
+          "vitals": {
+            "fcp": {
+              "label": "FCP",
+              "value": 3910.012875081782,
+              "displayValue": "3.9 s",
+              "numericUnit": "ms",
+              "score": 35
+            },
+            "lcp": {
+              "label": "LCP",
+              "value": 11344.039161707089,
+              "displayValue": "11.3 s",
+              "numericUnit": "ms",
+              "score": 25
+            },
+            "tbt": {
+              "label": "TBT",
+              "value": 110,
+              "displayValue": "110 ms",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "cls": {
+              "label": "CLS",
+              "value": 0,
+              "displayValue": "0",
+              "numericUnit": "",
+              "score": 100
+            }
+          }
+        },
+        "desktop": {
+          "strategy": "desktop",
+          "overallScore": 87,
+          "categories": {
+            "performance": {
+              "label": "Performance",
+              "score": 83
+            },
+            "accessibility": {
+              "label": "Accessibility",
+              "score": 86
+            },
+            "best_practices": {
+              "label": "Best Practices",
+              "score": 96
+            },
+            "seo": {
+              "label": "SEO",
+              "score": 92
+            }
+          },
+          "vitals": {
+            "fcp": {
+              "label": "FCP",
+              "value": 529.0092054425755,
+              "displayValue": "0.5 s",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "lcp": {
+              "label": "LCP",
+              "value": 1061.0205030311909,
+              "displayValue": "1.1 s",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "tbt": {
+              "label": "TBT",
+              "value": 61,
+              "displayValue": "60 ms",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "cls": {
+              "label": "CLS",
+              "value": 0.292626,
+              "displayValue": "0.293",
+              "numericUnit": "",
+              "score": 20
+            }
+          }
+        },
+        "audits": [
+          {
+            "id": "render-blocking-insight",
+            "title": "Render blocking requests",
+            "description": "Requests are blocking the page's initial render, which may delay LCP. [Deferring or inlining](https://developer.chrome.com/docs/performance/insights/render-blocking) can move these network requests out of the critical path.",
+            "displayValue": "Est savings of 2,950 ms",
+            "score": 0
+          },
+          {
+            "id": "largest-contentful-paint",
+            "title": "Largest Contentful Paint",
+            "description": "Largest Contentful Paint marks the time at which the largest text or image is painted. [Learn more about the Largest Contentful Paint metric](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/)",
+            "displayValue": "11.3 s",
+            "score": 0
+          },
+          {
+            "id": "link-name",
+            "title": "Links do not have a discernible name",
+            "description": "Link text (and alternate text for images, when used as links) that is discernible, unique, and focusable improves the navigation experience for screen reader users. [Learn how to make links accessible](https://dequeuniversity.com/rules/axe/4.11/link-name).",
+            "score": 0
+          },
+          {
+            "id": "image-alt",
+            "title": "Image elements do not have `[alt]` attributes",
+            "description": "Informative elements should aim for short, descriptive alternate text. Decorative elements can be ignored with an empty alt attribute. [Learn more about the `alt` attribute](https://dequeuniversity.com/rules/axe/4.11/image-alt).",
+            "score": 0
+          },
+          {
+            "id": "image-size-responsive",
+            "title": "Serves images with low resolution",
+            "description": "Image natural dimensions should be proportional to the display size and the pixel ratio to maximize image clarity. [Learn how to provide responsive images](https://web.dev/articles/serve-responsive-images).",
+            "score": 0
+          },
+          {
+            "id": "network-dependency-tree-insight",
+            "title": "Network dependency tree",
+            "description": "[Avoid chaining critical requests](https://developer.chrome.com/docs/performance/insights/network-dependency-tree) by reducing the length of chains, reducing the download size of resources, or deferring the download of unnecessary resources to improve page load.",
+            "score": 0
+          },
+          {
+            "id": "aria-required-children",
+            "title": "Elements with an ARIA `[role]` that require children to contain a specific `[role]` are missing some or all of those required children.",
+            "description": "Some ARIA parent roles must contain specific child roles to perform their intended accessibility functions. [Learn more about roles and required children elements](https://dequeuniversity.com/rules/axe/4.11/aria-required-children).",
+            "score": 0
+          },
+          {
+            "id": "unused-javascript",
+            "title": "Reduce unused JavaScript",
+            "description": "Reduce unused JavaScript and defer loading scripts until they are required to decrease bytes consumed by network activity. [Learn how to reduce unused JavaScript](https://developer.chrome.com/docs/lighthouse/performance/unused-javascript/).",
+            "displayValue": "Est savings of 212 KiB",
+            "score": 0
+          }
+        ]
+      },
+      "competitorPagespeed": null,
+      "competitors": [],
+      "aiReport": {
+        "growth_score": 80,
+        "summary": "Rickyvanovich already has a useful foundation, but a few slow or heavy page elements are likely making the experience feel less polished than it should.",
+        "ai_insight": "The simplest growth win is to make the first screen load faster and feel clearer. Once visitors can understand the page quickly, they are more likely to stay, trust the site, and take action.",
+        "metrics": {
+          "mobile_score": 72,
+          "desktop_score": 87,
+          "strongest_area": "Search visibility",
+          "weakest_area": "Mobile speed"
+        },
+        "score_prediction": {
+          "current": 80,
+          "potential": 98,
+          "rationale": "If the slowest page elements are cleaned up first, the site should feel faster and the overall score should rise noticeably."
+        },
+        "top_issues": [
+          {
+            "title": "Important parts of the page are loading too slowly",
+            "description": "Visitors may feel the page is slower than expected, which can reduce trust and increase drop-offs.",
+            "impact": "Est savings of 2,950 ms",
+            "fix": "Reduce large images, videos, and heavy scripts near the top of the page so visitors see useful content faster.",
+            "impactLevel": "High",
+            "difficulty": "Medium",
+            "priority": 100,
+            "affectedMetric": "Render blocking requests"
+          },
+          {
+            "title": "The page is carrying more weight than it needs to",
+            "description": "Visitors may feel the page is slower than expected, which can reduce trust and increase drop-offs.",
+            "impact": "11.3 s",
+            "fix": "Remove or delay anything that is not needed immediately, so the main message loads first.",
+            "impactLevel": "High",
+            "difficulty": "Easy",
+            "priority": 88,
+            "affectedMetric": "Largest Contentful Paint"
+          },
+          {
+            "title": "Links do not have a discernible name",
+            "description": "Link text (and alternate text for images, when used as links) that is discernible, unique, and focusable improves the navigation experience for screen reader users. [Learn how to make links accessible](https://dequeuniversity.com/rules/axe/4.11/link-name).",
+            "impact": "This can make the website feel slower, reduce engagement, and weaken the first impression.",
+            "fix": "Review links do not have a discernible name and simplify or delay whatever is slowing the page down.",
+            "impactLevel": "Medium",
+            "difficulty": "Easy",
+            "priority": 76,
+            "affectedMetric": "Links do not have a discernible name"
+          },
+          {
+            "title": "Image elements do not have `[alt]` attributes",
+            "description": "Informative elements should aim for short, descriptive alternate text. Decorative elements can be ignored with an empty alt attribute. [Learn more about the `alt` attribute](https://dequeuniversity.com/rules/axe/4.11/image-alt).",
+            "impact": "This can make the website feel slower, reduce engagement, and weaken the first impression.",
+            "fix": "Review image elements do not have `[alt]` attributes and simplify or delay whatever is slowing the page down.",
+            "impactLevel": "Medium",
+            "difficulty": "Easy",
+            "priority": 64,
+            "affectedMetric": "Image elements do not have `[alt]` attributes"
+          }
+        ],
+        "quick_wins": [
+          "Shrink large images so the page feels faster, especially on phones.",
+          "Delay extra scripts until after the main content becomes visible.",
+          "Rewrite Rickyvanovich's title and description so search users immediately understand the offer.",
+          "Make the headline and call-to-action clearer in the first screen people see."
+        ],
+        "priority_fixes": [
+          {
+            "fix": "Compress the largest images on key pages",
+            "impact": "High",
+            "difficulty": "Easy",
+            "priority": 95
+          },
+          {
+            "fix": "Delay extra scripts until after the page becomes usable",
+            "impact": "High",
+            "difficulty": "Medium",
+            "priority": 90
+          },
+          {
+            "fix": "Rewrite page titles and descriptions for clearer search appeal",
+            "impact": "Medium",
+            "difficulty": "Easy",
+            "priority": 84
+          },
+          {
+            "fix": "Review third-party widgets and remove low-value ones",
+            "impact": "Medium",
+            "difficulty": "Medium",
+            "priority": 78
+          }
+        ],
+        "step_by_step_plan": [
+          {
+            "title": "Review the first screen experience",
+            "description": "Review Rickyvanovich's homepage like a first-time visitor and note what feels slow or unclear."
+          },
+          {
+            "title": "Compress heavy visual assets",
+            "description": "Compress large images and videos, especially those shown near the top of the page."
+          },
+          {
+            "title": "Delay non-essential scripts",
+            "description": "Delay popups, trackers, and extra scripts until after the main content has loaded."
+          },
+          {
+            "title": "Clarify headline and metadata",
+            "description": "Rewrite the page title, description, and top headline so the main value is obvious in seconds."
+          }
+        ],
+        "seo_strategy": {
+          "titleTag": "When You Get Unstuck Now With Rick | Rickyvanovich",
+          "metaDescription": "All about Rick Yvanovich&#039;s updates, stories, published books, activities, calendar of events, podcasts, offers, downloads and more.",
+          "keywords": [
+            "rickyvanovich",
+            "rick",
+            "yvanovich",
+            "official",
+            "website",
+            "about"
+          ],
+          "contentAngle": "Lead with \"When You Get Unstuck Now With Rick\" and support it with simple proof points, a clear call to action, and a faster page experience."
+        }
+      }
+    },
+    {
+      "id": "knKIHggGLo",
+      "shareId": "FM4BZ7H1YkagEE",
+      "url": "https://rickyvanovich.com/",
+      "competitorUrl": "https://nayalife.in/",
+      "competitorUrls": [
+        "https://nayalife.in/",
+        "https://greaterinside.com/"
+      ],
+      "createdAt": "2026-04-16T06:10:45.682Z",
+      "updatedAt": "2026-04-16T06:13:47.644Z",
+      "pagespeed": {
+        "url": "https://rickyvanovich.com/",
+        "fetchedAt": "2026-04-16T06:14:46.934Z",
+        "mobile": {
+          "strategy": "mobile",
+          "overallScore": 75,
+          "categories": {
+            "performance": {
+              "label": "Performance",
+              "score": 64
+            },
+            "accessibility": {
+              "label": "Accessibility",
+              "score": 79
+            },
+            "best_practices": {
+              "label": "Best Practices",
+              "score": 92
+            },
+            "seo": {
+              "label": "SEO",
+              "score": 92
+            }
+          },
+          "vitals": {
+            "fcp": {
+              "label": "FCP",
+              "value": 3312.018804856106,
+              "displayValue": "3.3 s",
+              "numericUnit": "ms",
+              "score": 35
+            },
+            "lcp": {
+              "label": "LCP",
+              "value": 10145.060645660946,
+              "displayValue": "10.1 s",
+              "numericUnit": "ms",
+              "score": 25
+            },
+            "tbt": {
+              "label": "TBT",
+              "value": 104.5,
+              "displayValue": "100 ms",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "cls": {
+              "label": "CLS",
+              "value": 0,
+              "displayValue": "0",
+              "numericUnit": "",
+              "score": 100
+            }
+          }
+        },
+        "desktop": {
+          "strategy": "desktop",
+          "overallScore": 95,
+          "categories": {
+            "performance": {
+              "label": "Performance",
+              "score": 98
+            },
+            "accessibility": {
+              "label": "Accessibility",
+              "score": 86
+            },
+            "best_practices": {
+              "label": "Best Practices",
+              "score": 96
+            },
+            "seo": {
+              "label": "SEO",
+              "score": 92
+            }
+          },
+          "vitals": {
+            "fcp": {
+              "label": "FCP",
+              "value": 521.010260503544,
+              "displayValue": "0.5 s",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "lcp": {
+              "label": "LCP",
+              "value": 1061.022852939712,
+              "displayValue": "1.1 s",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "tbt": {
+              "label": "TBT",
+              "value": 52,
+              "displayValue": "50 ms",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "cls": {
+              "label": "CLS",
+              "value": 0.005168,
+              "displayValue": "0.005",
+              "numericUnit": "",
+              "score": 100
+            }
+          }
+        },
+        "audits": [
+          {
+            "id": "image-delivery-insight",
+            "title": "Improve image delivery",
+            "description": "Reducing the download time of images can improve the perceived load time of the page and LCP. [Learn more about optimizing image size](https://developer.chrome.com/docs/performance/insights/image-delivery)",
+            "displayValue": "Est savings of 232 KiB",
+            "score": 0
+          },
+          {
+            "id": "unused-javascript",
+            "title": "Reduce unused JavaScript",
+            "description": "Reduce unused JavaScript and defer loading scripts until they are required to decrease bytes consumed by network activity. [Learn how to reduce unused JavaScript](https://developer.chrome.com/docs/lighthouse/performance/unused-javascript/).",
+            "displayValue": "Est savings of 211 KiB",
+            "score": 0
+          },
+          {
+            "id": "render-blocking-insight",
+            "title": "Render blocking requests",
+            "description": "Requests are blocking the page's initial render, which may delay LCP. [Deferring or inlining](https://developer.chrome.com/docs/performance/insights/render-blocking) can move these network requests out of the critical path.",
+            "displayValue": "Est savings of 3,140 ms",
+            "score": 0
+          },
+          {
+            "id": "color-contrast",
+            "title": "Background and foreground colors do not have a sufficient contrast ratio.",
+            "description": "Low-contrast text is difficult or impossible for many users to read. [Learn how to provide sufficient color contrast](https://dequeuniversity.com/rules/axe/4.11/color-contrast).",
+            "score": 0
+          },
+          {
+            "id": "errors-in-console",
+            "title": "Browser errors were logged to the console",
+            "description": "Errors logged to the console indicate unresolved problems. They can come from network request failures and other browser concerns. [Learn more about this errors in console diagnostic audit](https://developer.chrome.com/docs/lighthouse/best-practices/errors-in-console/)",
+            "score": 0
+          },
+          {
+            "id": "network-dependency-tree-insight",
+            "title": "Network dependency tree",
+            "description": "[Avoid chaining critical requests](https://developer.chrome.com/docs/performance/insights/network-dependency-tree) by reducing the length of chains, reducing the download size of resources, or deferring the download of unnecessary resources to improve page load.",
+            "score": 0
+          },
+          {
+            "id": "font-display-insight",
+            "title": "Font display",
+            "description": "Consider setting [font-display](https://developer.chrome.com/docs/performance/insights/font-display) to swap or optional to ensure text is consistently visible. swap can be further optimized to mitigate layout shifts with [font metric overrides](https://developer.chrome.com/blog/font-fallbacks).",
+            "displayValue": "Est savings of 40 ms",
+            "score": 0
+          },
+          {
+            "id": "largest-contentful-paint",
+            "title": "Largest Contentful Paint",
+            "description": "Largest Contentful Paint marks the time at which the largest text or image is painted. [Learn more about the Largest Contentful Paint metric](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/)",
+            "displayValue": "10.1 s",
+            "score": 0
+          }
+        ]
+      },
+      "competitorPagespeed": {
+        "url": "https://nayalife.in/",
+        "fetchedAt": "2026-04-16T06:15:28.119Z",
+        "mobile": {
+          "strategy": "mobile",
+          "overallScore": 92,
+          "categories": {
+            "performance": {
+              "label": "Performance",
+              "score": 98
+            },
+            "accessibility": {
+              "label": "Accessibility",
+              "score": 77
+            },
+            "best_practices": {
+              "label": "Best Practices",
+              "score": 92
+            },
+            "seo": {
+              "label": "SEO",
+              "score": 85
+            }
+          },
+          "vitals": {
+            "fcp": {
+              "label": "FCP",
+              "value": 1201,
+              "displayValue": "1.2 s",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "lcp": {
+              "label": "LCP",
+              "value": 2261.0003242492676,
+              "displayValue": "2.3 s",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "tbt": {
+              "label": "TBT",
+              "value": 0,
+              "displayValue": "0 ms",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "cls": {
+              "label": "CLS",
+              "value": 0,
+              "displayValue": "0",
+              "numericUnit": "",
+              "score": 100
+            }
+          }
+        },
+        "desktop": {
+          "strategy": "desktop",
+          "overallScore": 96,
+          "categories": {
+            "performance": {
+              "label": "Performance",
+              "score": 100
+            },
+            "accessibility": {
+              "label": "Accessibility",
+              "score": 90
+            },
+            "best_practices": {
+              "label": "Best Practices",
+              "score": 96
+            },
+            "seo": {
+              "label": "SEO",
+              "score": 85
+            }
+          },
+          "vitals": {
+            "fcp": {
+              "label": "FCP",
+              "value": 376,
+              "displayValue": "0.4 s",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "lcp": {
+              "label": "LCP",
+              "value": 482.0003242492676,
+              "displayValue": "0.5 s",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "tbt": {
+              "label": "TBT",
+              "value": 0,
+              "displayValue": "0 ms",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "cls": {
+              "label": "CLS",
+              "value": 0.000027,
+              "displayValue": "0",
+              "numericUnit": "",
+              "score": 100
+            }
+          }
+        },
+        "audits": [
+          {
+            "id": "image-alt",
+            "title": "Image elements do not have `[alt]` attributes",
+            "description": "Informative elements should aim for short, descriptive alternate text. Decorative elements can be ignored with an empty alt attribute. [Learn more about the `alt` attribute](https://dequeuniversity.com/rules/axe/4.11/image-alt).",
+            "score": 0
+          },
+          {
+            "id": "target-size",
+            "title": "Touch targets do not have sufficient size or spacing.",
+            "description": "Touch targets with sufficient size and spacing help users who may have difficulty targeting small controls to activate the targets. [Learn more about touch targets](https://dequeuniversity.com/rules/axe/4.11/target-size).",
+            "score": 0
+          },
+          {
+            "id": "errors-in-console",
+            "title": "Browser errors were logged to the console",
+            "description": "Errors logged to the console indicate unresolved problems. They can come from network request failures and other browser concerns. [Learn more about this errors in console diagnostic audit](https://developer.chrome.com/docs/lighthouse/best-practices/errors-in-console/)",
+            "score": 0
+          },
+          {
+            "id": "robots-txt",
+            "title": "robots.txt is not valid",
+            "description": "If your robots.txt file is malformed, crawlers may not be able to understand how you want your website to be crawled or indexed. [Learn more about robots.txt](https://developer.chrome.com/docs/lighthouse/seo/invalid-robots-txt/).",
+            "displayValue": "1 error found",
+            "score": 0
+          },
+          {
+            "id": "forced-reflow-insight",
+            "title": "Forced reflow",
+            "description": "A forced reflow occurs when JavaScript queries geometric properties (such as offsetWidth) after styles have been invalidated by a change to the DOM state. This can result in poor performance. Learn more about [forced reflows](https://developer.chrome.com/docs/performance/insights/forced-reflow) and possible mitigations.",
+            "score": 0
+          },
+          {
+            "id": "network-dependency-tree-insight",
+            "title": "Network dependency tree",
+            "description": "[Avoid chaining critical requests](https://developer.chrome.com/docs/performance/insights/network-dependency-tree) by reducing the length of chains, reducing the download size of resources, or deferring the download of unnecessary resources to improve page load.",
+            "score": 0
+          },
+          {
+            "id": "image-delivery-insight",
+            "title": "Improve image delivery",
+            "description": "Reducing the download time of images can improve the perceived load time of the page and LCP. [Learn more about optimizing image size](https://developer.chrome.com/docs/performance/insights/image-delivery)",
+            "displayValue": "Est savings of 56 KiB",
+            "score": 0
+          },
+          {
+            "id": "image-size-responsive",
+            "title": "Serves images with low resolution",
+            "description": "Image natural dimensions should be proportional to the display size and the pixel ratio to maximize image clarity. [Learn how to provide responsive images](https://web.dev/articles/serve-responsive-images).",
+            "score": 0
+          }
+        ]
+      },
+      "competitors": [
+        {
+          "url": "https://nayalife.in/",
+          "pagespeed": {
+            "url": "https://nayalife.in/",
+            "fetchedAt": "2026-04-16T06:15:28.119Z",
+            "mobile": {
+              "strategy": "mobile",
+              "overallScore": 92,
+              "categories": {
+                "performance": {
+                  "label": "Performance",
+                  "score": 98
+                },
+                "accessibility": {
+                  "label": "Accessibility",
+                  "score": 77
+                },
+                "best_practices": {
+                  "label": "Best Practices",
+                  "score": 92
+                },
+                "seo": {
+                  "label": "SEO",
+                  "score": 85
+                }
+              },
+              "vitals": {
+                "fcp": {
+                  "label": "FCP",
+                  "value": 1201,
+                  "displayValue": "1.2 s",
+                  "numericUnit": "ms",
+                  "score": 100
+                },
+                "lcp": {
+                  "label": "LCP",
+                  "value": 2261.0003242492676,
+                  "displayValue": "2.3 s",
+                  "numericUnit": "ms",
+                  "score": 100
+                },
+                "tbt": {
+                  "label": "TBT",
+                  "value": 0,
+                  "displayValue": "0 ms",
+                  "numericUnit": "ms",
+                  "score": 100
+                },
+                "cls": {
+                  "label": "CLS",
+                  "value": 0,
+                  "displayValue": "0",
+                  "numericUnit": "",
+                  "score": 100
+                }
+              }
+            },
+            "desktop": {
+              "strategy": "desktop",
+              "overallScore": 96,
+              "categories": {
+                "performance": {
+                  "label": "Performance",
+                  "score": 100
+                },
+                "accessibility": {
+                  "label": "Accessibility",
+                  "score": 90
+                },
+                "best_practices": {
+                  "label": "Best Practices",
+                  "score": 96
+                },
+                "seo": {
+                  "label": "SEO",
+                  "score": 85
+                }
+              },
+              "vitals": {
+                "fcp": {
+                  "label": "FCP",
+                  "value": 376,
+                  "displayValue": "0.4 s",
+                  "numericUnit": "ms",
+                  "score": 100
+                },
+                "lcp": {
+                  "label": "LCP",
+                  "value": 482.0003242492676,
+                  "displayValue": "0.5 s",
+                  "numericUnit": "ms",
+                  "score": 100
+                },
+                "tbt": {
+                  "label": "TBT",
+                  "value": 0,
+                  "displayValue": "0 ms",
+                  "numericUnit": "ms",
+                  "score": 100
+                },
+                "cls": {
+                  "label": "CLS",
+                  "value": 0.000027,
+                  "displayValue": "0",
+                  "numericUnit": "",
+                  "score": 100
+                }
+              }
+            },
+            "audits": [
+              {
+                "id": "image-alt",
+                "title": "Image elements do not have `[alt]` attributes",
+                "description": "Informative elements should aim for short, descriptive alternate text. Decorative elements can be ignored with an empty alt attribute. [Learn more about the `alt` attribute](https://dequeuniversity.com/rules/axe/4.11/image-alt).",
+                "score": 0
+              },
+              {
+                "id": "target-size",
+                "title": "Touch targets do not have sufficient size or spacing.",
+                "description": "Touch targets with sufficient size and spacing help users who may have difficulty targeting small controls to activate the targets. [Learn more about touch targets](https://dequeuniversity.com/rules/axe/4.11/target-size).",
+                "score": 0
+              },
+              {
+                "id": "errors-in-console",
+                "title": "Browser errors were logged to the console",
+                "description": "Errors logged to the console indicate unresolved problems. They can come from network request failures and other browser concerns. [Learn more about this errors in console diagnostic audit](https://developer.chrome.com/docs/lighthouse/best-practices/errors-in-console/)",
+                "score": 0
+              },
+              {
+                "id": "robots-txt",
+                "title": "robots.txt is not valid",
+                "description": "If your robots.txt file is malformed, crawlers may not be able to understand how you want your website to be crawled or indexed. [Learn more about robots.txt](https://developer.chrome.com/docs/lighthouse/seo/invalid-robots-txt/).",
+                "displayValue": "1 error found",
+                "score": 0
+              },
+              {
+                "id": "forced-reflow-insight",
+                "title": "Forced reflow",
+                "description": "A forced reflow occurs when JavaScript queries geometric properties (such as offsetWidth) after styles have been invalidated by a change to the DOM state. This can result in poor performance. Learn more about [forced reflows](https://developer.chrome.com/docs/performance/insights/forced-reflow) and possible mitigations.",
+                "score": 0
+              },
+              {
+                "id": "network-dependency-tree-insight",
+                "title": "Network dependency tree",
+                "description": "[Avoid chaining critical requests](https://developer.chrome.com/docs/performance/insights/network-dependency-tree) by reducing the length of chains, reducing the download size of resources, or deferring the download of unnecessary resources to improve page load.",
+                "score": 0
+              },
+              {
+                "id": "image-delivery-insight",
+                "title": "Improve image delivery",
+                "description": "Reducing the download time of images can improve the perceived load time of the page and LCP. [Learn more about optimizing image size](https://developer.chrome.com/docs/performance/insights/image-delivery)",
+                "displayValue": "Est savings of 56 KiB",
+                "score": 0
+              },
+              {
+                "id": "image-size-responsive",
+                "title": "Serves images with low resolution",
+                "description": "Image natural dimensions should be proportional to the display size and the pixel ratio to maximize image clarity. [Learn how to provide responsive images](https://web.dev/articles/serve-responsive-images).",
+                "score": 0
+              }
+            ]
+          }
+        },
+        {
+          "url": "https://greaterinside.com/",
+          "pagespeed": {
+            "url": "https://greaterinside.com/",
+            "fetchedAt": "2026-04-16T06:15:32.262Z",
+            "mobile": {
+              "strategy": "mobile",
+              "overallScore": 81,
+              "categories": {
+                "performance": {
+                  "label": "Performance",
+                  "score": 69
+                },
+                "accessibility": {
+                  "label": "Accessibility",
+                  "score": 90
+                },
+                "best_practices": {
+                  "label": "Best Practices",
+                  "score": 96
+                },
+                "seo": {
+                  "label": "SEO",
+                  "score": 100
+                }
+              },
+              "vitals": {
+                "fcp": {
+                  "label": "FCP",
+                  "value": 3156.2047691167472,
+                  "displayValue": "3.2 s",
+                  "numericUnit": "ms",
+                  "score": 35
+                },
+                "lcp": {
+                  "label": "LCP",
+                  "value": 8101.048905697058,
+                  "displayValue": "8.1 s",
+                  "numericUnit": "ms",
+                  "score": 25
+                },
+                "tbt": {
+                  "label": "TBT",
+                  "value": 86.5,
+                  "displayValue": "90 ms",
+                  "numericUnit": "ms",
+                  "score": 100
+                },
+                "cls": {
+                  "label": "CLS",
+                  "value": 0.00022,
+                  "displayValue": "0",
+                  "numericUnit": "",
+                  "score": 100
+                }
+              }
+            },
+            "desktop": {
+              "strategy": "desktop",
+              "overallScore": 92,
+              "categories": {
+                "performance": {
+                  "label": "Performance",
+                  "score": 90
+                },
+                "accessibility": {
+                  "label": "Accessibility",
+                  "score": 90
+                },
+                "best_practices": {
+                  "label": "Best Practices",
+                  "score": 96
+                },
+                "seo": {
+                  "label": "SEO",
+                  "score": 100
+                }
+              },
+              "vitals": {
+                "fcp": {
+                  "label": "FCP",
+                  "value": 806.2032109743495,
+                  "displayValue": "0.8 s",
+                  "numericUnit": "ms",
+                  "score": 100
+                },
+                "lcp": {
+                  "label": "LCP",
+                  "value": 1888.0369129675032,
+                  "displayValue": "1.9 s",
+                  "numericUnit": "ms",
+                  "score": 100
+                },
+                "tbt": {
+                  "label": "TBT",
+                  "value": 89.50000000000034,
+                  "displayValue": "90 ms",
+                  "numericUnit": "ms",
+                  "score": 100
+                },
+                "cls": {
+                  "label": "CLS",
+                  "value": 0,
+                  "displayValue": "0",
+                  "numericUnit": "",
+                  "score": 100
+                }
+              }
+            },
+            "audits": [
+              {
+                "id": "render-blocking-insight",
+                "title": "Render blocking requests",
+                "description": "Requests are blocking the page's initial render, which may delay LCP. [Deferring or inlining](https://developer.chrome.com/docs/performance/insights/render-blocking) can move these network requests out of the critical path.",
+                "displayValue": "Est savings of 2,500 ms",
+                "score": 0
+              },
+              {
+                "id": "lcp-discovery-insight",
+                "title": "LCP request discovery",
+                "description": "[Optimize LCP](https://developer.chrome.com/docs/performance/insights/lcp-discovery) by making the LCP image discoverable from the HTML immediately, and avoiding lazy-loading",
+                "score": 0
+              },
+              {
+                "id": "errors-in-console",
+                "title": "Browser errors were logged to the console",
+                "description": "Errors logged to the console indicate unresolved problems. They can come from network request failures and other browser concerns. [Learn more about this errors in console diagnostic audit](https://developer.chrome.com/docs/lighthouse/best-practices/errors-in-console/)",
+                "score": 0
+              },
+              {
+                "id": "unused-javascript",
+                "title": "Reduce unused JavaScript",
+                "description": "Reduce unused JavaScript and defer loading scripts until they are required to decrease bytes consumed by network activity. [Learn how to reduce unused JavaScript](https://developer.chrome.com/docs/lighthouse/performance/unused-javascript/).",
+                "displayValue": "Est savings of 246 KiB",
+                "score": 0
+              },
+              {
+                "id": "landmark-one-main",
+                "title": "Document does not have a main landmark.",
+                "description": "One main landmark helps screen reader users navigate a web page. [Learn more about landmarks](https://dequeuniversity.com/rules/axe/4.11/landmark-one-main).",
+                "score": 0
+              },
+              {
+                "id": "target-size",
+                "title": "Touch targets do not have sufficient size or spacing.",
+                "description": "Touch targets with sufficient size and spacing help users who may have difficulty targeting small controls to activate the targets. [Learn more about touch targets](https://dequeuniversity.com/rules/axe/4.11/target-size).",
+                "score": 0
+              },
+              {
+                "id": "heading-order",
+                "title": "Heading elements are not in a sequentially-descending order",
+                "description": "Properly ordered headings that do not skip levels convey the semantic structure of the page, making it easier to navigate and understand when using assistive technologies. [Learn more about heading order](https://dequeuniversity.com/rules/axe/4.11/heading-order).",
+                "score": 0
+              },
+              {
+                "id": "image-delivery-insight",
+                "title": "Improve image delivery",
+                "description": "Reducing the download time of images can improve the perceived load time of the page and LCP. [Learn more about optimizing image size](https://developer.chrome.com/docs/performance/insights/image-delivery)",
+                "displayValue": "Est savings of 537 KiB",
+                "score": 0
+              }
+            ]
+          }
+        }
+      ],
+      "aiReport": {
+        "growth_score": 85,
+        "summary": "Rickyvanovich already has a useful foundation, but a few slow or heavy page elements are likely making the experience feel less polished than it should.",
+        "ai_insight": "The simplest growth win is to make the first screen load faster and feel clearer. Once visitors can understand the page quickly, they are more likely to stay, trust the site, and take action.",
+        "metrics": {
+          "mobile_score": 75,
+          "desktop_score": 95,
+          "strongest_area": "Search visibility",
+          "weakest_area": "Mobile speed"
+        },
+        "score_prediction": {
+          "current": 85,
+          "potential": 100,
+          "rationale": "If the slowest page elements are cleaned up first, the site should feel faster and the overall score should rise noticeably."
+        },
+        "top_issues": [
+          {
+            "title": "Important parts of the page are loading too slowly",
+            "description": "Visitors may feel the page is slower than expected, which can reduce trust and increase drop-offs.",
+            "impact": "Est savings of 232 KiB",
+            "fix": "Reduce large images, videos, and heavy scripts near the top of the page so visitors see useful content faster.",
+            "impactLevel": "High",
+            "difficulty": "Medium",
+            "priority": 100,
+            "affectedMetric": "Improve image delivery"
+          },
+          {
+            "title": "The page is carrying more weight than it needs to",
+            "description": "Visitors may feel the page is slower than expected, which can reduce trust and increase drop-offs.",
+            "impact": "Est savings of 211 KiB",
+            "fix": "Remove or delay anything that is not needed immediately, so the main message loads first.",
+            "impactLevel": "High",
+            "difficulty": "Easy",
+            "priority": 88,
+            "affectedMetric": "Reduce unused JavaScript"
+          },
+          {
+            "title": "Render blocking requests",
+            "description": "Requests are blocking the page's initial render, which may delay LCP. [Deferring or inlining](https://developer.chrome.com/docs/performance/insights/render-blocking) can move these network requests out of the critical path.",
+            "impact": "Est savings of 3,140 ms",
+            "fix": "Review render blocking requests and simplify or delay whatever is slowing the page down.",
+            "impactLevel": "Medium",
+            "difficulty": "Easy",
+            "priority": 76,
+            "affectedMetric": "Render blocking requests"
+          },
+          {
+            "title": "Background and foreground colors do not have a sufficient contrast ratio.",
+            "description": "Low-contrast text is difficult or impossible for many users to read. [Learn how to provide sufficient color contrast](https://dequeuniversity.com/rules/axe/4.11/color-contrast).",
+            "impact": "This can make the website feel slower, reduce engagement, and weaken the first impression.",
+            "fix": "Review background and foreground colors do not have a sufficient contrast ratio. and simplify or delay whatever is slowing the page down.",
+            "impactLevel": "Medium",
+            "difficulty": "Easy",
+            "priority": 64,
+            "affectedMetric": "Background and foreground colors do not have a sufficient contrast ratio."
+          }
+        ],
+        "quick_wins": [
+          "Shrink large images so the page feels faster, especially on phones.",
+          "Delay extra scripts until after the main content becomes visible.",
+          "Rewrite Rickyvanovich's title and description so search users immediately understand the offer.",
+          "Make the headline and call-to-action clearer in the first screen people see."
+        ],
+        "priority_fixes": [
+          {
+            "fix": "Compress the largest images on key pages",
+            "impact": "High",
+            "difficulty": "Easy",
+            "priority": 95
+          },
+          {
+            "fix": "Delay extra scripts until after the page becomes usable",
+            "impact": "High",
+            "difficulty": "Medium",
+            "priority": 90
+          },
+          {
+            "fix": "Rewrite page titles and descriptions for clearer search appeal",
+            "impact": "Medium",
+            "difficulty": "Easy",
+            "priority": 84
+          },
+          {
+            "fix": "Review third-party widgets and remove low-value ones",
+            "impact": "Medium",
+            "difficulty": "Medium",
+            "priority": 78
+          }
+        ],
+        "step_by_step_plan": [
+          {
+            "title": "Review the first screen experience",
+            "description": "Review Rickyvanovich's homepage like a first-time visitor and note what feels slow or unclear."
+          },
+          {
+            "title": "Compress heavy visual assets",
+            "description": "Compress large images and videos, especially those shown near the top of the page."
+          },
+          {
+            "title": "Delay non-essential scripts",
+            "description": "Delay popups, trackers, and extra scripts until after the main content has loaded."
+          },
+          {
+            "title": "Clarify headline and metadata",
+            "description": "Rewrite the page title, description, and top headline so the main value is obvious in seconds."
+          }
+        ],
+        "seo_strategy": {
+          "titleTag": "When You Get Unstuck Now With Rick | Rickyvanovich",
+          "metaDescription": "All about Rick Yvanovich&#039;s updates, stories, published books, activities, calendar of events, podcasts, offers, downloads and more.",
+          "keywords": [
+            "rickyvanovich",
+            "rick",
+            "yvanovich",
+            "official",
+            "website",
+            "about"
+          ],
+          "contentAngle": "Lead with \"When You Get Unstuck Now With Rick\" and support it with simple proof points, a clear call to action, and a faster page experience."
+        },
+        "competitor_comparison": {
+          "executive_summary": "Rickyvanovich is currently trailing Nayalife in overall experience, mainly because the competitor feels faster or clearer in a few high-visibility areas.",
+          "insights": [
+            {
+              "website": "Rickyvanovich",
+              "strongest_area": "SEO",
+              "weakest_area": "Mobile speed",
+              "why_it_wins": "The site already has at least one strong area that gives it a solid base to compete from.",
+              "why_it_lags": "The biggest gaps are still tied to how quickly and clearly the experience lands for new visitors."
+            },
+            {
+              "website": "Nayalife",
+              "strongest_area": "Mobile performance",
+              "weakest_area": "Accessibility",
+              "why_it_wins": "This site currently feels stronger because its page experience or message clarity is landing better in the comparison set.",
+              "why_it_lags": "It also has visible weaknesses, so it can still be overtaken with stronger speed and content improvements."
+            },
+            {
+              "website": "Greaterinside",
+              "strongest_area": "SEO",
+              "weakest_area": "Desktop consistency",
+              "why_it_wins": "This site currently feels stronger because its page experience or message clarity is landing better in the comparison set.",
+              "why_it_lags": "It also has visible weaknesses, so it can still be overtaken with stronger speed and content improvements."
+            }
+          ]
+        }
+      }
     }
   ]
 }

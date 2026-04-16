@@ -65,6 +65,24 @@ export interface SeoRecommendation {
   contentAngle: string;
 }
 
+export interface ActionPlanStep {
+  title: string;
+  description: string;
+}
+
+export interface CompetitorInsight {
+  website: string;
+  strongest_area: string;
+  weakest_area: string;
+  why_it_wins: string;
+  why_it_lags: string;
+}
+
+export interface ReportCompetitor {
+  url: string;
+  pagespeed: PageSpeedReport;
+}
+
 export interface SiteContentContext {
   url: string;
   title?: string;
@@ -92,11 +110,11 @@ export interface AIReportPayload {
   top_issues: TopIssue[];
   quick_wins: string[];
   priority_fixes: FixPriorityRow[];
-  step_by_step_plan: string[];
+  step_by_step_plan: ActionPlanStep[];
   seo_strategy: SeoRecommendation;
   competitor_comparison?: {
-    summary: string;
-    outperform_actions: string[];
+    executive_summary: string;
+    insights: CompetitorInsight[];
   };
 }
 
@@ -124,9 +142,11 @@ export interface StoredReport {
   shareId: string;
   url: string;
   competitorUrl?: string | null;
+  competitorUrls?: string[];
   createdAt: string;
   updatedAt: string;
   pagespeed: PageSpeedReport;
   competitorPagespeed?: PageSpeedReport | null;
+  competitors?: ReportCompetitor[];
   aiReport: AIReportPayload;
 }

@@ -1,5 +1,5 @@
 import { aiResponseSchema, type AIResponse } from "@/lib/schema";
-import { PageSpeedReport, SiteContentContext } from "@/lib/types";
+import { ActionPlanStep, PageSpeedReport, SiteContentContext } from "@/lib/types";
 
 function getSiteLabel(url: string) {
   try {
@@ -13,9 +13,9 @@ function getSiteLabel(url: string) {
 
 function buildPrompt(
   report: PageSpeedReport,
-  competitorReport?: PageSpeedReport | null,
+  competitorReports: PageSpeedReport[] = [],
   siteContext?: SiteContentContext | null,
-  competitorContext?: SiteContentContext | null
+  competitorContexts: Array<SiteContentContext | null> = []
 ) {
   return `
 You are an expert growth strategist, technical SEO consultant, and website performance specialist.
@@ -66,7 +66,12 @@ Required output schema:
       "priority": number
     }
   ],
-  "step_by_step_plan": string[],
+  "step_by_step_plan": [
+    {
+      "title": string,
+      "description": string
+    }
+  ],
   "seo_strategy": {
     "titleTag": string,
     "metaDescription": string,
@@ -74,8 +79,16 @@ Required output schema:
     "contentAngle": string
   },
   "competitor_comparison": {
-    "summary": string,
-    "outperform_actions": string[]
+    "executive_summary": string,
+    "insights": [
+      {
+        "website": string,
+        "strongest_area": string,
+        "weakest_area": string,
+        "why_it_wins": string,
+        "why_it_lags": string
+      }
+    ]
   }
 }
 
@@ -85,9 +98,10 @@ Rules:
 - score_prediction.potential must be greater than or equal to current and at most 100
 - top_issues must be sorted by highest business impact first
 - priority_fixes must prioritize high impact and lower effort
-- step_by_step_plan must be beginner-friendly and ordered
+- step_by_step_plan must be beginner-friendly and ordered, with a clear title and description for each step
 - quick_wins, top_issues, step_by_step_plan, and ai_insight must be understandable by a founder, marketer, or small business owner
 - If no competitor report exists, omit competitor_comparison
+- If competitor reports exist, compare the main website against all provided competitors and explain which website is stronger in which area and why
 
 Primary site data:
 ${JSON.stringify(report, null, 2)}
@@ -96,10 +110,10 @@ Primary site content context:
 ${JSON.stringify(siteContext ?? null, null, 2)}
 
 Competitor data:
-${competitorReport ? JSON.stringify(competitorReport, null, 2) : "none"}
+${competitorReports.length ? JSON.stringify(competitorReports, null, 2) : "none"}
 
 Competitor content context:
-${JSON.stringify(competitorContext ?? null, null, 2)}
+${JSON.stringify(competitorContexts, null, 2)}
 `.trim();
 }
 
@@ -153,18 +167,42 @@ function buildFallbackAngle(siteLabel: string, siteContext?: SiteContentContext 
   return `Clarify the main promise ${siteLabel} offers, then support it with stronger proof, clearer messaging, and a faster experience.`;
 }
 
+function buildFallbackPlan(siteLabel: string): ActionPlanStep[] {
+  return [
+    {
+      title: "Review the first screen experience",
+      description: `Review ${siteLabel}'s homepage like a first-time visitor and note what feels slow or unclear.`
+    },
+    {
+      title: "Compress heavy visual assets",
+      description: "Compress large images and videos, especially those shown near the top of the page."
+    },
+    {
+      title: "Delay non-essential scripts",
+      description: "Delay popups, trackers, and extra scripts until after the main content has loaded."
+    },
+    {
+      title: "Clarify headline and metadata",
+      description: "Rewrite the page title, description, and top headline so the main value is obvious in seconds."
+    }
+  ];
+}
+
 function fallbackInsight(
   report: PageSpeedReport,
-  competitorReport?: PageSpeedReport | null,
+  competitorReports: PageSpeedReport[] = [],
   siteContext?: SiteContentContext | null
 ): AIResponse {
   const siteLabel = getSiteLabel(report.url);
   const current = Math.round((report.mobile.overallScore + report.desktop.overallScore) / 2);
   const potential = Math.min(100, current + 18);
   const worstAudits = report.audits.slice(0, 4);
-  const competitorScore = competitorReport
-    ? Math.round((competitorReport.mobile.overallScore + competitorReport.desktop.overallScore) / 2)
-    : null;
+  const competitorScores = competitorReports.map((competitor) => ({
+    url: competitor.url,
+    score: Math.round((competitor.mobile.overallScore + competitor.desktop.overallScore) / 2),
+    report: competitor
+  }));
+  const bestCompetitor = [...competitorScores].sort((a, b) => b.score - a.score)[0] ?? null;
 
   return {
     growth_score: current,
@@ -226,29 +264,55 @@ function fallbackInsight(
       { fix: "Rewrite page titles and descriptions for clearer search appeal", impact: "Medium", difficulty: "Easy", priority: 84 },
       { fix: "Review third-party widgets and remove low-value ones", impact: "Medium", difficulty: "Medium", priority: 78 }
     ],
-    step_by_step_plan: [
-      `Review ${siteLabel}'s homepage like a first-time visitor and note what feels slow or unclear.`,
-      "Compress large images and videos, especially those shown near the top of the page.",
-      "Delay popups, trackers, and extra scripts until after the main content has loaded.",
-      "Rewrite the page title, description, and top headline so the main value is obvious in seconds.",
-      "Run the report again and confirm the site now feels faster and easier to understand."
-    ],
+    step_by_step_plan: buildFallbackPlan(siteLabel),
     seo_strategy: {
       titleTag: buildFallbackTitle(siteLabel, siteContext),
       metaDescription: buildFallbackMeta(siteLabel, siteContext),
       keywords: buildFallbackKeywords(siteLabel, siteContext),
       contentAngle: buildFallbackAngle(siteLabel, siteContext)
     },
-    competitor_comparison: competitorReport
+    competitor_comparison: competitorReports.length
       ? {
-          summary:
-            competitorScore && competitorScore > current
-              ? "The competitor currently feels stronger overall, likely because its site is faster or clearer in a few important areas."
-              : `${siteLabel} is performing competitively overall, but there is still room to make the experience clearer and faster.`,
-          outperform_actions: [
-            "Close the biggest speed gap first so visitors feel your site is just as responsive.",
-            "Sharpen your headline and search description so the value is easier to understand at a glance.",
-            "Use the competitor's stronger categories as a benchmark for what to improve next."
+          executive_summary:
+            bestCompetitor && bestCompetitor.score > current
+              ? `${siteLabel} is currently trailing ${getSiteLabel(bestCompetitor.url)} in overall experience, mainly because the competitor feels faster or clearer in a few high-visibility areas.`
+              : `${siteLabel} is performing competitively across the comparison set, with room to improve speed consistency and message clarity even further.`,
+          insights: [
+            {
+              website: siteLabel,
+              strongest_area:
+                report.desktop.categories.seo.score >= report.mobile.categories.performance.score
+                  ? "SEO"
+                  : "Desktop experience",
+              weakest_area:
+                report.mobile.categories.performance.score <=
+                report.desktop.categories.accessibility.score
+                  ? "Mobile speed"
+                  : "Usability",
+              why_it_wins:
+                "The site already has at least one strong area that gives it a solid base to compete from.",
+              why_it_lags:
+                "The biggest gaps are still tied to how quickly and clearly the experience lands for new visitors."
+            },
+            ...competitorScores.map((competitor) => ({
+              website: getSiteLabel(competitor.url),
+              strongest_area:
+                competitor.report.mobile.categories.performance.score >=
+                competitor.report.desktop.categories.seo.score
+                  ? "Mobile performance"
+                  : "SEO",
+              weakest_area:
+                competitor.report.desktop.categories.accessibility.score <=
+                competitor.report.mobile.categories.performance.score
+                  ? "Accessibility"
+                  : "Desktop consistency",
+              why_it_wins:
+                competitor.score >= current
+                  ? "This site currently feels stronger because its page experience or message clarity is landing better in the comparison set."
+                  : "It still provides a useful benchmark in at least one category where it performs well.",
+              why_it_lags:
+                "It also has visible weaknesses, so it can still be overtaken with stronger speed and content improvements."
+            }))
           ]
         }
       : undefined
@@ -270,14 +334,14 @@ function parseJsonFromText(text: string) {
 
 export async function generateAIReport(
   report: PageSpeedReport,
-  competitorReport?: PageSpeedReport | null,
+  competitorReports: PageSpeedReport[] = [],
   siteContext?: SiteContentContext | null,
-  competitorContext?: SiteContentContext | null
+  competitorContexts: Array<SiteContentContext | null> = []
 ) {
   const apiKey = process.env.OPENROUTER_API_KEY;
 
   if (!apiKey) {
-    return fallbackInsight(report, competitorReport, siteContext);
+    return fallbackInsight(report, competitorReports, siteContext);
   }
 
   try {
@@ -296,7 +360,7 @@ export async function generateAIReport(
         messages: [
           {
             role: "user",
-            content: buildPrompt(report, competitorReport, siteContext, competitorContext)
+            content: buildPrompt(report, competitorReports, siteContext, competitorContexts)
           }
         ]
       }),
@@ -317,6 +381,6 @@ export async function generateAIReport(
     const parsed = parseJsonFromText(content);
     return aiResponseSchema.parse(parsed);
   } catch {
-    return fallbackInsight(report, competitorReport, siteContext);
+    return fallbackInsight(report, competitorReports, siteContext);
   }
 }

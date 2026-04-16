@@ -3,6 +3,7 @@ import { z } from "zod";
 export const analyzeRequestSchema = z.object({
   url: z.string().min(1),
   competitorUrl: z.string().optional(),
+  competitorUrls: z.array(z.string().min(1)).max(3).optional(),
   reportId: z.string().optional()
 });
 
@@ -48,7 +49,15 @@ export const aiResponseSchema = z.object({
     )
     .min(3)
     .max(8),
-  step_by_step_plan: z.array(z.string().min(1)).min(4).max(10),
+  step_by_step_plan: z
+    .array(
+      z.object({
+        title: z.string().min(1),
+        description: z.string().min(1)
+      })
+    )
+    .min(3)
+    .max(6),
   seo_strategy: z.object({
     titleTag: z.string().min(1),
     metaDescription: z.string().min(1),
@@ -57,8 +66,19 @@ export const aiResponseSchema = z.object({
   }),
   competitor_comparison: z
     .object({
-      summary: z.string().min(1),
-      outperform_actions: z.array(z.string().min(1)).min(2).max(6)
+      executive_summary: z.string().min(1),
+      insights: z
+        .array(
+          z.object({
+            website: z.string().min(1),
+            strongest_area: z.string().min(1),
+            weakest_area: z.string().min(1),
+            why_it_wins: z.string().min(1),
+            why_it_lags: z.string().min(1)
+          })
+        )
+        .min(1)
+        .max(4)
     })
     .optional()
 });
