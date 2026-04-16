@@ -49,7 +49,7 @@ npm run dev
 ## Environment variables
 
 - `NEXT_PUBLIC_APP_URL`: public base URL for share links and email links
-- `POSTGRES_URL`: required on Vercel for persistent report history, share links, and regeneration
+- `POSTGRES_URL` or `DATABASE_URL`: required on Vercel for persistent report history, share links, and regeneration
 - `PAGESPEED_API_KEY`: optional but recommended for higher PageSpeed quota
 - `OPENROUTER_API_KEY`: required for live AI output
 - `OPENROUTER_MODEL`: optional OpenRouter model name override
@@ -60,13 +60,13 @@ npm run dev
 - `app/api/analyze/route.ts` orchestrates the analysis pipeline
 - `lib/pagespeed.ts` normalizes URLs and fetches mobile/desktop Lighthouse data
 - `lib/openrouter.ts` requests strict JSON and falls back gracefully if AI is unavailable
-- `lib/db.ts` persists reports in Postgres when `POSTGRES_URL` is configured, and falls back to `data/growthlens-reports.json` locally
+- `lib/db.ts` persists reports in Postgres when `POSTGRES_URL` or `DATABASE_URL` is configured, and falls back to `data/growthlens-reports.json` locally
 - `components/report/report-client.tsx` powers the interactive dashboard
 - `app/api/reports/[id]/pdf/route.tsx` renders PDFs server-side with React PDF
 
 ## Production guidance
 
-- On Vercel, attach a Postgres-compatible database and set `POSTGRES_URL`
+- On Vercel, attach a Postgres-compatible database and set `POSTGRES_URL` or `DATABASE_URL`
 - Add auth, billing, and rate limiting before launching publicly
 - Consider background jobs for heavy report generation and email delivery at scale
 - Add tests around parsing, route validation, and external API adapters before broad rollout

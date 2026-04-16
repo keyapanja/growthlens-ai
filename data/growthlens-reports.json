@@ -1,0 +1,286 @@
+{
+  "reports": [
+    {
+      "id": "ZUaSEPtViq",
+      "shareId": "a4JlTJIUDeevJp",
+      "url": "https://rickyvanovich.com/",
+      "competitorUrl": null,
+      "createdAt": "2026-04-16T04:02:42.357Z",
+      "updatedAt": "2026-04-16T04:02:42.357Z",
+      "pagespeed": {
+        "url": "https://rickyvanovich.com/",
+        "fetchedAt": "2026-04-16T04:03:11.596Z",
+        "mobile": {
+          "strategy": "mobile",
+          "overallScore": 72,
+          "categories": {
+            "performance": {
+              "label": "Performance",
+              "score": 60
+            },
+            "accessibility": {
+              "label": "Accessibility",
+              "score": 79
+            },
+            "best_practices": {
+              "label": "Best Practices",
+              "score": 92
+            },
+            "seo": {
+              "label": "SEO",
+              "score": 92
+            }
+          },
+          "vitals": {
+            "fcp": {
+              "label": "FCP",
+              "value": 3908.0739842629437,
+              "displayValue": "3.9 s",
+              "numericUnit": "ms",
+              "score": 35
+            },
+            "lcp": {
+              "label": "LCP",
+              "value": 11433.22657680526,
+              "displayValue": "11.4 s",
+              "numericUnit": "ms",
+              "score": 25
+            },
+            "tbt": {
+              "label": "TBT",
+              "value": 83,
+              "displayValue": "80 ms",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "cls": {
+              "label": "CLS",
+              "value": 0,
+              "displayValue": "0",
+              "numericUnit": "",
+              "score": 100
+            }
+          }
+        },
+        "desktop": {
+          "strategy": "desktop",
+          "overallScore": 89,
+          "categories": {
+            "performance": {
+              "label": "Performance",
+              "score": 87
+            },
+            "accessibility": {
+              "label": "Accessibility",
+              "score": 86
+            },
+            "best_practices": {
+              "label": "Best Practices",
+              "score": 96
+            },
+            "seo": {
+              "label": "SEO",
+              "score": 92
+            }
+          },
+          "vitals": {
+            "fcp": {
+              "label": "FCP",
+              "value": 649.0088237391197,
+              "displayValue": "0.6 s",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "lcp": {
+              "label": "LCP",
+              "value": 1181.0173323446993,
+              "displayValue": "1.2 s",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "tbt": {
+              "label": "TBT",
+              "value": 60.5,
+              "displayValue": "60 ms",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "cls": {
+              "label": "CLS",
+              "value": 0.20419199999999998,
+              "displayValue": "0.204",
+              "numericUnit": "",
+              "score": 60
+            }
+          }
+        },
+        "audits": [
+          {
+            "id": "render-blocking-insight",
+            "title": "Render blocking requests",
+            "description": "Requests are blocking the page's initial render, which may delay LCP. [Deferring or inlining](https://developer.chrome.com/docs/performance/insights/render-blocking) can move these network requests out of the critical path.",
+            "displayValue": "Est savings of 2,950 ms",
+            "score": 0
+          },
+          {
+            "id": "image-delivery-insight",
+            "title": "Improve image delivery",
+            "description": "Reducing the download time of images can improve the perceived load time of the page and LCP. [Learn more about optimizing image size](https://developer.chrome.com/docs/performance/insights/image-delivery)",
+            "displayValue": "Est savings of 232 KiB",
+            "score": 0
+          },
+          {
+            "id": "unminified-javascript",
+            "title": "Minify JavaScript",
+            "description": "Minifying JavaScript files can reduce payload sizes and script parse time. [Learn how to minify JavaScript](https://developer.chrome.com/docs/lighthouse/performance/unminified-javascript/).",
+            "displayValue": "Est savings of 3 KiB",
+            "score": 0
+          },
+          {
+            "id": "unused-javascript",
+            "title": "Reduce unused JavaScript",
+            "description": "Reduce unused JavaScript and defer loading scripts until they are required to decrease bytes consumed by network activity. [Learn how to reduce unused JavaScript](https://developer.chrome.com/docs/lighthouse/performance/unused-javascript/).",
+            "displayValue": "Est savings of 212 KiB",
+            "score": 0
+          },
+          {
+            "id": "color-contrast",
+            "title": "Background and foreground colors do not have a sufficient contrast ratio.",
+            "description": "Low-contrast text is difficult or impossible for many users to read. [Learn how to provide sufficient color contrast](https://dequeuniversity.com/rules/axe/4.11/color-contrast).",
+            "score": 0
+          },
+          {
+            "id": "lcp-breakdown-insight",
+            "title": "LCP breakdown",
+            "description": "Each [subpart has specific improvement strategies](https://developer.chrome.com/docs/performance/insights/lcp-breakdown). Ideally, most of the LCP time should be spent on loading the resources, not within delays.",
+            "score": 0
+          },
+          {
+            "id": "link-name",
+            "title": "Links do not have a discernible name",
+            "description": "Link text (and alternate text for images, when used as links) that is discernible, unique, and focusable improves the navigation experience for screen reader users. [Learn how to make links accessible](https://dequeuniversity.com/rules/axe/4.11/link-name).",
+            "score": 0
+          },
+          {
+            "id": "font-display-insight",
+            "title": "Font display",
+            "description": "Consider setting [font-display](https://developer.chrome.com/docs/performance/insights/font-display) to swap or optional to ensure text is consistently visible. swap can be further optimized to mitigate layout shifts with [font metric overrides](https://developer.chrome.com/blog/font-fallbacks).",
+            "displayValue": "Est savings of 150 ms",
+            "score": 0
+          }
+        ]
+      },
+      "competitorPagespeed": null,
+      "aiReport": {
+        "growth_score": 81,
+        "summary": "Rickyvanovich already has a useful foundation, but a few slow or heavy page elements are likely making the experience feel less polished than it should.",
+        "ai_insight": "The simplest growth win is to make the first screen load faster and feel clearer. Once visitors can understand the page quickly, they are more likely to stay, trust the site, and take action.",
+        "metrics": {
+          "mobile_score": 72,
+          "desktop_score": 89,
+          "strongest_area": "Search visibility",
+          "weakest_area": "Mobile speed"
+        },
+        "score_prediction": {
+          "current": 81,
+          "potential": 99,
+          "rationale": "If the slowest page elements are cleaned up first, the site should feel faster and the overall score should rise noticeably."
+        },
+        "top_issues": [
+          {
+            "title": "Important parts of the page are loading too slowly",
+            "description": "Visitors may feel the page is slower than expected, which can reduce trust and increase drop-offs.",
+            "impact": "Est savings of 2,950 ms",
+            "fix": "Reduce large images, videos, and heavy scripts near the top of the page so visitors see useful content faster.",
+            "impactLevel": "High",
+            "difficulty": "Medium",
+            "priority": 100,
+            "affectedMetric": "Render blocking requests"
+          },
+          {
+            "title": "The page is carrying more weight than it needs to",
+            "description": "Visitors may feel the page is slower than expected, which can reduce trust and increase drop-offs.",
+            "impact": "Est savings of 232 KiB",
+            "fix": "Remove or delay anything that is not needed immediately, so the main message loads first.",
+            "impactLevel": "High",
+            "difficulty": "Easy",
+            "priority": 88,
+            "affectedMetric": "Improve image delivery"
+          },
+          {
+            "title": "Minify JavaScript",
+            "description": "Minifying JavaScript files can reduce payload sizes and script parse time. [Learn how to minify JavaScript](https://developer.chrome.com/docs/lighthouse/performance/unminified-javascript/).",
+            "impact": "Est savings of 3 KiB",
+            "fix": "Review minify javascript and simplify or delay whatever is slowing the page down.",
+            "impactLevel": "Medium",
+            "difficulty": "Easy",
+            "priority": 76,
+            "affectedMetric": "Minify JavaScript"
+          },
+          {
+            "title": "Reduce unused JavaScript",
+            "description": "Reduce unused JavaScript and defer loading scripts until they are required to decrease bytes consumed by network activity. [Learn how to reduce unused JavaScript](https://developer.chrome.com/docs/lighthouse/performance/unused-javascript/).",
+            "impact": "Est savings of 212 KiB",
+            "fix": "Review reduce unused javascript and simplify or delay whatever is slowing the page down.",
+            "impactLevel": "Medium",
+            "difficulty": "Easy",
+            "priority": 64,
+            "affectedMetric": "Reduce unused JavaScript"
+          }
+        ],
+        "quick_wins": [
+          "Shrink large images so the page feels faster, especially on phones.",
+          "Delay extra scripts until after the main content becomes visible.",
+          "Rewrite Rickyvanovich's title and description so search users immediately understand the offer.",
+          "Make the headline and call-to-action clearer in the first screen people see."
+        ],
+        "priority_fixes": [
+          {
+            "fix": "Compress the largest images on key pages",
+            "impact": "High",
+            "difficulty": "Easy",
+            "priority": 95
+          },
+          {
+            "fix": "Delay extra scripts until after the page becomes usable",
+            "impact": "High",
+            "difficulty": "Medium",
+            "priority": 90
+          },
+          {
+            "fix": "Rewrite page titles and descriptions for clearer search appeal",
+            "impact": "Medium",
+            "difficulty": "Easy",
+            "priority": 84
+          },
+          {
+            "fix": "Review third-party widgets and remove low-value ones",
+            "impact": "Medium",
+            "difficulty": "Medium",
+            "priority": 78
+          }
+        ],
+        "step_by_step_plan": [
+          "Review Rickyvanovich's homepage like a first-time visitor and note what feels slow or unclear.",
+          "Compress large images and videos, especially those shown near the top of the page.",
+          "Delay popups, trackers, and extra scripts until after the main content has loaded.",
+          "Rewrite the page title, description, and top headline so the main value is obvious in seconds.",
+          "Run the report again and confirm the site now feels faster and easier to understand."
+        ],
+        "seo_strategy": {
+          "titleTag": "When You Get Unstuck Now With Rick | Rickyvanovich",
+          "metaDescription": "All about Rick Yvanovich&#039;s updates, stories, published books, activities, calendar of events, podcasts, offers, downloads and more.",
+          "keywords": [
+            "rickyvanovich",
+            "rick",
+            "yvanovich",
+            "official",
+            "website",
+            "about"
+          ],
+          "contentAngle": "Lead with \"When You Get Unstuck Now With Rick\" and support it with simple proof points, a clear call to action, and a faster page experience."
+        }
+      }
+    }
+  ]
+}

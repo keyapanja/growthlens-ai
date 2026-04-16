@@ -1,4 +1,4 @@
-import { sql } from "@vercel/postgres";
+import { createPool } from "@vercel/postgres";
 import fs from "fs/promises";
 import path from "path";
 import { StoredReport } from "@/lib/types";
@@ -22,11 +22,16 @@ type ReportRow = {
   aiReportJson?: string;
 };
 
-const usePostgres = Boolean(
+const databaseUrl =
   process.env.POSTGRES_URL ||
-    process.env.POSTGRES_URL_NON_POOLING ||
-    process.env.POSTGRES_PRISMA_URL
-);
+  process.env.POSTGRES_URL_NON_POOLING ||
+  process.env.POSTGRES_PRISMA_URL ||
+  process.env.DATABASE_URL ||
+  process.env.NEON_DATABASE_URL;
+
+const usePostgres = Boolean(databaseUrl);
+const isVercelRuntime = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
+const db = usePostgres ? createPool({ connectionString: databaseUrl }) : null;
 
 let postgresSchemaReady: Promise<void> | null = null;
 const localDataDir = path.join(process.cwd(), "data");
@@ -58,11 +63,11 @@ function mapRow(row: ReportRow): StoredReport {
 }
 
 async function ensurePostgresSchema() {
-  if (!usePostgres) return;
+  if (!db) return;
 
   if (!postgresSchemaReady) {
     postgresSchemaReady = (async () => {
-      await sql`
+      await db.sql`
         CREATE TABLE IF NOT EXISTS reports (
           id TEXT PRIMARY KEY,
           shareId TEXT NOT NULL UNIQUE,
@@ -76,7 +81,7 @@ async function ensurePostgresSchema() {
         );
       `;
 
-      await sql`
+      await db.sql`
         CREATE INDEX IF NOT EXISTS reports_updatedAt_idx
         ON reports (updatedAt DESC);
       `;
@@ -87,6 +92,12 @@ async function ensurePostgresSchema() {
 }
 
 async function readLocalReports(): Promise<StoredReport[]> {
+  if (isVercelRuntime) {
+    throw new Error(
+      "Database is not configured on Vercel. Add POSTGRES_URL or DATABASE_URL to your project environment variables."
+    );
+  }
+
   try {
     const file = await fs.readFile(localReportsPath, "utf8");
     const parsed = JSON.parse(file) as { reports?: StoredReport[] } | StoredReport[];
@@ -106,6 +117,12 @@ async function readLocalReports(): Promise<StoredReport[]> {
 }
 
 async function writeLocalReports(reports: StoredReport[]) {
+  if (isVercelRuntime) {
+    throw new Error(
+      "Database is not configured on Vercel. Add POSTGRES_URL or DATABASE_URL to your project environment variables."
+    );
+  }
+
   await fs.mkdir(localDataDir, { recursive: true });
   await fs.writeFile(
     localReportsPath,
@@ -115,9 +132,9 @@ async function writeLocalReports(reports: StoredReport[]) {
 }
 
 export async function saveReport(report: StoredReport) {
-  if (usePostgres) {
+  if (db) {
     await ensurePostgresSchema();
-    await sql`
+    await db.sql`
       INSERT INTO reports (
         id, shareId, url, competitorUrl, createdAt, updatedAt,
         pagespeedJson, competitorPagespeedJson, aiReportJson
@@ -157,9 +174,9 @@ export async function saveReport(report: StoredReport) {
 }
 
 export async function getReportById(id: string) {
-  if (usePostgres) {
+  if (db) {
     await ensurePostgresSchema();
-    const { rows } = await sql<ReportRow>`
+    const { rows } = await db.sql<ReportRow>`
       SELECT
         id,
         shareId,
@@ -183,9 +200,9 @@ export async function getReportById(id: string) {
 }
 
 export async function getReportByShareId(shareId: string) {
-  if (usePostgres) {
+  if (db) {
     await ensurePostgresSchema();
-    const { rows } = await sql<ReportRow>`
+    const { rows } = await db.sql<ReportRow>`
       SELECT
         id,
         shareId,
@@ -209,9 +226,9 @@ export async function getReportByShareId(shareId: string) {
 }
 
 export async function getRecentReports(limit = 6): Promise<StoredReport[]> {
-  if (usePostgres) {
+  if (db) {
     await ensurePostgresSchema();
-    const { rows } = await sql<ReportRow>`
+    const { rows } = await db.sql<ReportRow>`
       SELECT
         id,
         shareId,
