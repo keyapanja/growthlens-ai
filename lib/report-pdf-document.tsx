@@ -42,21 +42,31 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#26303d",
     borderRadius: 18,
-    padding: 18,
+    padding: 14,
     marginBottom: 16
   },
   scoreBubble: {
-    width: 116,
-    height: 116,
-    borderRadius: 58,
-    borderWidth: 7,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    borderWidth: 6,
     borderColor: "#81ecff",
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 18
+    marginRight: 14
   },
   row: { flexDirection: "row" },
   grow: { flexGrow: 1 },
+  heroContent: {
+    flexGrow: 1
+  },
+  heroSummaryBlock: {
+    marginTop: 14
+  },
+  heroScoreRow: {
+    flexDirection: "row",
+    justifyContent: "center"
+  },
   metricGrid: {
     flexDirection: "row",
     marginHorizontal: -6,
@@ -87,6 +97,24 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     marginBottom: 10
   },
+  contentLabel: {
+    color: "#f8fafc",
+    fontSize: 14,
+    fontWeight: 700,
+    marginBottom: 5
+  },
+  heroSummary: {
+    color: "#dbe3ee",
+    fontSize: 10,
+    fontWeight: 400,
+    lineHeight: 1.32,
+    marginBottom: 6
+  },
+  heroInsight: {
+    color: "#dbe3ee",
+    fontSize: 10,
+    lineHeight: 1.32
+  },
   card: {
     backgroundColor: "#1b2028",
     borderWidth: 1,
@@ -97,11 +125,22 @@ const styles = StyleSheet.create({
   },
   body: {
     color: "#dbe3ee",
-    lineHeight: 1.5
+    lineHeight: 1.42
   },
   smallMuted: {
     color: "#a8abb3",
     fontSize: 10
+  },
+  metricHeading: {
+    color: "#f8fafc",
+    fontSize: 13,
+    fontWeight: 700,
+    marginBottom: 5
+  },
+  issueItem: {
+    color: "#dbe3ee",
+    lineHeight: 1.28,
+    marginBottom: 6
   },
   table: {
     borderWidth: 1,
@@ -150,6 +189,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingTop: 7,
     marginRight: 12
+  },
+  highlightCard: {
+    backgroundColor: "#1b2028",
+    borderWidth: 1,
+    borderColor: "#2d3642",
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 14
   },
   footer: {
     position: "absolute",
@@ -249,37 +296,50 @@ export function ReportPdfDocument({ report }: { report: StoredReport }) {
         </Text>
 
         <View style={styles.heroCard}>
-          <View style={styles.row}>
+          <View style={styles.heroScoreRow}>
             <View style={styles.scoreBubble}>
               <Text style={{ fontSize: 32, fontWeight: 700 }}>{report.aiReport.growth_score}</Text>
               <Text style={{ fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: "#81ecff" }}>Score</Text>
             </View>
-            <View style={styles.grow}>
-              <Text style={[styles.body, { fontSize: 16, fontWeight: 600, marginBottom: 10 }]}>{report.aiReport.summary}</Text>
-              <Text style={styles.body}>{report.aiReport.ai_insight}</Text>
-            </View>
+          </View>
+          <View style={styles.heroSummaryBlock}>
+            <Text style={styles.contentLabel}>Executive Summary</Text>
+            <Text style={styles.heroSummary}>{report.aiReport.summary}</Text>
+            <Text style={styles.heroInsight}>{report.aiReport.ai_insight}</Text>
           </View>
         </View>
 
         <View style={styles.metricGrid}>
-          <View style={styles.metricCard}><Text style={styles.metricLabel}>Growth Score</Text><Text style={[styles.metricValue, { color: "#81ecff" }]}>{report.aiReport.growth_score}</Text></View>
-          <View style={styles.metricCard}><Text style={styles.metricLabel}>Mobile Score</Text><Text style={[styles.metricValue, { color: "#a68cff" }]}>{report.aiReport.metrics.mobile_score}</Text></View>
-          <View style={styles.metricCard}><Text style={styles.metricLabel}>Desktop Score</Text><Text style={[styles.metricValue, { color: "#6e9bff" }]}>{report.aiReport.metrics.desktop_score}</Text></View>
-          <View style={styles.metricCard}><Text style={styles.metricLabel}>SEO Score</Text><Text style={[styles.metricValue, { color: "#00d4ec" }]}>{mobile.categories.seo.score}</Text></View>
+          <View style={styles.metricCard}>
+            <Text style={styles.metricLabel}>Growth Score</Text>
+            <Text style={[styles.metricValue, { color: "#81ecff" }]}>{report.aiReport.growth_score}</Text>
+          </View>
+          <View style={styles.metricCard}>
+            <Text style={styles.metricLabel}>Mobile Score</Text>
+            <Text style={[styles.metricValue, { color: "#a68cff" }]}>{report.aiReport.metrics.mobile_score}</Text>
+          </View>
+          <View style={styles.metricCard}>
+            <Text style={styles.metricLabel}>Desktop Score</Text>
+            <Text style={[styles.metricValue, { color: "#6e9bff" }]}>{report.aiReport.metrics.desktop_score}</Text>
+          </View>
+          <View style={styles.metricCard}>
+            <Text style={styles.metricLabel}>SEO Score</Text>
+            <Text style={[styles.metricValue, { color: "#00d4ec" }]}>{mobile.categories.seo.score}</Text>
+          </View>
         </View>
 
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Performance Snapshot</Text>
           <View style={styles.row}>
             <View style={[styles.grow, { marginRight: 10 }]}>
-              <Text style={styles.smallMuted}>Mobile</Text>
+              <Text style={styles.metricHeading}>Mobile</Text>
               <Text style={styles.body}>FCP {mobile.vitals.fcp.displayValue}</Text>
               <Text style={styles.body}>LCP {mobile.vitals.lcp.displayValue}</Text>
               <Text style={styles.body}>TBT {mobile.vitals.tbt.displayValue}</Text>
               <Text style={styles.body}>CLS {mobile.vitals.cls.displayValue}</Text>
             </View>
             <View style={styles.grow}>
-              <Text style={styles.smallMuted}>Desktop</Text>
+              <Text style={styles.metricHeading}>Desktop</Text>
               <Text style={styles.body}>FCP {desktop.vitals.fcp.displayValue}</Text>
               <Text style={styles.body}>LCP {desktop.vitals.lcp.displayValue}</Text>
               <Text style={styles.body}>TBT {desktop.vitals.tbt.displayValue}</Text>
@@ -290,18 +350,18 @@ export function ReportPdfDocument({ report }: { report: StoredReport }) {
 
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Search Messaging Analysis</Text>
-          <Text style={[styles.smallMuted, { marginBottom: 4 }]}>Recommended Meta Title</Text>
+          <Text style={styles.contentLabel}>Recommended Meta Title</Text>
           <Text style={[styles.body, { marginBottom: 10 }]}>{report.aiReport.seo_strategy.titleTag}</Text>
-          <Text style={[styles.smallMuted, { marginBottom: 4 }]}>AI Suggested Meta Description</Text>
+          <Text style={styles.contentLabel}>AI Suggested Meta Description</Text>
           <Text style={[styles.body, { marginBottom: 10 }]}>{report.aiReport.seo_strategy.metaDescription}</Text>
-          <Text style={[styles.smallMuted, { marginBottom: 4 }]}>Target Keywords</Text>
+          <Text style={styles.contentLabel}>Target Keywords</Text>
           <Text style={styles.body}>{report.aiReport.seo_strategy.keywords.join(", ")}</Text>
         </View>
 
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Top Issues to Address</Text>
-          {report.aiReport.top_issues.slice(0, 3).map((issue, index) => (
-            <Text key={`${issue.title}-${index}`} style={[styles.body, { marginBottom: 8 }]}>
+          {report.aiReport.top_issues.slice(0, 2).map((issue, index) => (
+            <Text key={`${issue.title}-${index}`} style={styles.issueItem}>
               {index + 1}. {issue.title} - {issue.fix}
             </Text>
           ))}
@@ -309,7 +369,7 @@ export function ReportPdfDocument({ report }: { report: StoredReport }) {
 
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Step-by-step Action Plan</Text>
-          {report.aiReport.step_by_step_plan.slice(0, 4).map((step, index) => (
+          {report.aiReport.step_by_step_plan.slice(0, 3).map((step, index) => (
             <View key={`${step.title}-${index}`} style={styles.planRow}>
               <Text style={styles.planNumber}>{index + 1}</Text>
               <View style={styles.grow}>
@@ -360,19 +420,26 @@ export function ReportPdfDocument({ report }: { report: StoredReport }) {
             ))}
           </View>
 
-          {report.aiReport.competitor_comparison?.insights?.length ? (
-            <View style={styles.card}>
-              <Text style={styles.sectionTitle}>Competitive Highlights</Text>
-              {report.aiReport.competitor_comparison.insights.map((insight) => (
-                <View key={insight.website} style={{ marginBottom: 10 }}>
-                  <Text style={{ fontSize: 12, fontWeight: 700, marginBottom: 2 }}>{insight.website}</Text>
-                  <Text style={styles.body}>Strongest area: {insight.strongest_area}. Weakest area: {insight.weakest_area}. {insight.why_it_wins} {insight.why_it_lags}</Text>
-                </View>
-              ))}
-            </View>
-          ) : null}
-
           <Text style={styles.footer}>Generated by GrowthLens AI ({appUrl}) | {comparedSites.map((site) => displayUrl(site.url)).join(" vs ")}</Text>
+        </Page>
+      ) : null}
+
+      {report.aiReport.competitor_comparison?.insights?.length ? (
+        <Page size="A4" style={styles.page}>
+          <Text style={styles.heading}>Competitive Highlights</Text>
+          <Text style={styles.subheading}>
+            Deeper AI notes for {comparedSites.map((site) => displayUrl(site.url)).join("  vs  ")}
+          </Text>
+          {report.aiReport.competitor_comparison.insights.map((insight) => (
+            <View key={insight.website} style={styles.highlightCard}>
+              <Text style={{ fontSize: 14, fontWeight: 700, marginBottom: 6 }}>{insight.website}</Text>
+              <Text style={[styles.body, { marginBottom: 4 }]}>Strongest area: {insight.strongest_area}</Text>
+              <Text style={[styles.body, { marginBottom: 4 }]}>Weakest area: {insight.weakest_area}</Text>
+              <Text style={[styles.body, { marginBottom: 4 }]}>{insight.why_it_wins}</Text>
+              <Text style={styles.body}>{insight.why_it_lags}</Text>
+            </View>
+          ))}
+          <Text style={styles.footer}>Generated by GrowthLens AI ({appUrl}) | Competitive Highlights</Text>
         </Page>
       ) : null}
     </Document>

@@ -141,7 +141,7 @@ export async function sendReportEmail(report: StoredReport, recipient: string) {
                     <th align="left" style="padding:8px 12px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#a8abb3;">Metric</th>
                     ${comparedSites
                       .map(
-                        (site, index) => `<th align="left" style="padding:8px 12px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:${index === 0 ? "#81ecff" : "#a8abb3"};">${index === 0 ? "Your Site" : displayUrl(site.url)}</th>`
+                        (site, index) => `<th align="left" style="padding:8px 12px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:${index === 0 ? "#81ecff" : "#a8abb3"};">${index === 0 ? "Your Site" : `<a href="${site.url}" style="color:#a8abb3;text-decoration:none;">${displayUrl(site.url)}</a>`}</th>`
                       )
                       .join("")}
                     <th align="left" style="padding:8px 12px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#a8abb3;">Trend</th>
@@ -170,20 +170,19 @@ export async function sendReportEmail(report: StoredReport, recipient: string) {
 
           <div style="margin-bottom:24px;background:#10161f;border:1px solid rgba(68,72,79,.25);border-radius:22px;padding:18px;">
             <div style="font-size:22px;font-weight:700;color:#f8faff;margin-bottom:14px;">Step-by-step Action Plan</div>
-            ${report.aiReport.step_by_step_plan
-              .slice(0, 3)
-              .map(
-                (step, index) => `
-                  <div style="display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;">
-                    <div style="width:32px;height:32px;border-radius:10px;background:#81ecff;color:#003840;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${index + 1}</div>
-                    <div>
+            <ol style="margin:0;padding-left:22px;">
+              ${report.aiReport.step_by_step_plan
+                .slice(0, 3)
+                .map(
+                  (step) => `
+                    <li style="margin-bottom:14px;color:#f8faff;">
                       <div style="font-size:18px;font-weight:700;color:#f8faff;margin-bottom:4px;">${step.title}</div>
                       <div style="font-size:14px;line-height:1.7;color:#a8abb3;">${step.description}</div>
-                    </div>
-                  </div>
-                `
-              )
-              .join("")}
+                    </li>
+                  `
+                )
+                .join("")}
+            </ol>
           </div>
 
           <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;">
