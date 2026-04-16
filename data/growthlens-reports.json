@@ -1385,6 +1385,299 @@
           ]
         }
       }
+    },
+    {
+      "id": "KIvmsQ2fnt",
+      "shareId": "4_sqivkYwaY94D",
+      "viewerId": "2e63d7cd-e4da-4d86-8ca7-ddd6f1c0a604",
+      "url": "https://satorimethod.com/",
+      "competitorUrl": null,
+      "competitorUrls": [],
+      "createdAt": "2026-04-16T08:50:52.402Z",
+      "updatedAt": "2026-04-16T08:50:52.402Z",
+      "pagespeed": {
+        "url": "https://satorimethod.com/",
+        "fetchedAt": "2026-04-16T08:52:29.979Z",
+        "mobile": {
+          "strategy": "mobile",
+          "overallScore": 74,
+          "categories": {
+            "performance": {
+              "label": "Performance",
+              "score": 59
+            },
+            "accessibility": {
+              "label": "Accessibility",
+              "score": 92
+            },
+            "best_practices": {
+              "label": "Best Practices",
+              "score": 92
+            },
+            "seo": {
+              "label": "SEO",
+              "score": 92
+            }
+          },
+          "vitals": {
+            "fcp": {
+              "label": "FCP",
+              "value": 2883.5003552451535,
+              "displayValue": "2.9 s",
+              "numericUnit": "ms",
+              "score": 70
+            },
+            "lcp": {
+              "label": "LCP",
+              "value": 5401.500710490309,
+              "displayValue": "5.4 s",
+              "numericUnit": "ms",
+              "score": 25
+            },
+            "tbt": {
+              "label": "TBT",
+              "value": 344.5,
+              "displayValue": "340 ms",
+              "numericUnit": "ms",
+              "score": 60
+            },
+            "cls": {
+              "label": "CLS",
+              "value": 0.10902400000000001,
+              "displayValue": "0.109",
+              "numericUnit": "",
+              "score": 60
+            }
+          }
+        },
+        "desktop": {
+          "strategy": "desktop",
+          "overallScore": 74,
+          "categories": {
+            "performance": {
+              "label": "Performance",
+              "score": 59
+            },
+            "accessibility": {
+              "label": "Accessibility",
+              "score": 91
+            },
+            "best_practices": {
+              "label": "Best Practices",
+              "score": 96
+            },
+            "seo": {
+              "label": "SEO",
+              "score": 92
+            }
+          },
+          "vitals": {
+            "fcp": {
+              "label": "FCP",
+              "value": 825.0031158924457,
+              "displayValue": "0.8 s",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "lcp": {
+              "label": "LCP",
+              "value": 1401.017137408452,
+              "displayValue": "1.4 s",
+              "numericUnit": "ms",
+              "score": 100
+            },
+            "tbt": {
+              "label": "TBT",
+              "value": 1686.4999999999995,
+              "displayValue": "1,690 ms",
+              "numericUnit": "ms",
+              "score": 25
+            },
+            "cls": {
+              "label": "CLS",
+              "value": 0.067597,
+              "displayValue": "0.068",
+              "numericUnit": "",
+              "score": 100
+            }
+          }
+        },
+        "audits": [
+          {
+            "id": "bootup-time",
+            "title": "Reduce JavaScript execution time",
+            "description": "Consider reducing the time spent parsing, compiling, and executing JS. You may find delivering smaller JS payloads helps with this. [Learn how to reduce Javascript execution time](https://developer.chrome.com/docs/lighthouse/performance/bootup-time/).",
+            "displayValue": "1.5 s",
+            "score": 0
+          },
+          {
+            "id": "network-dependency-tree-insight",
+            "title": "Network dependency tree",
+            "description": "[Avoid chaining critical requests](https://developer.chrome.com/docs/performance/insights/network-dependency-tree) by reducing the length of chains, reducing the download size of resources, or deferring the download of unnecessary resources to improve page load.",
+            "score": 0
+          },
+          {
+            "id": "cls-culprits-insight",
+            "title": "Layout shift culprits",
+            "description": "Layout shifts occur when elements move absent any user interaction. [Investigate the causes of layout shifts](https://developer.chrome.com/docs/performance/insights/cls-culprit), such as elements being added, removed, or their fonts changing as the page loads.",
+            "score": 0
+          },
+          {
+            "id": "forced-reflow-insight",
+            "title": "Forced reflow",
+            "description": "A forced reflow occurs when JavaScript queries geometric properties (such as offsetWidth) after styles have been invalidated by a change to the DOM state. This can result in poor performance. Learn more about [forced reflows](https://developer.chrome.com/docs/performance/insights/forced-reflow) and possible mitigations.",
+            "score": 0
+          },
+          {
+            "id": "link-name",
+            "title": "Links do not have a discernible name",
+            "description": "Link text (and alternate text for images, when used as links) that is discernible, unique, and focusable improves the navigation experience for screen reader users. [Learn how to make links accessible](https://dequeuniversity.com/rules/axe/4.11/link-name).",
+            "score": 0
+          },
+          {
+            "id": "mainthread-work-breakdown",
+            "title": "Minimize main-thread work",
+            "description": "Consider reducing the time spent parsing, compiling and executing JS. You may find delivering smaller JS payloads helps with this. [Learn how to minimize main-thread work](https://developer.chrome.com/docs/lighthouse/performance/mainthread-work-breakdown/)",
+            "displayValue": "2.9 s",
+            "score": 0
+          },
+          {
+            "id": "heading-order",
+            "title": "Heading elements are not in a sequentially-descending order",
+            "description": "Properly ordered headings that do not skip levels convey the semantic structure of the page, making it easier to navigate and understand when using assistive technologies. [Learn more about heading order](https://dequeuniversity.com/rules/axe/4.11/heading-order).",
+            "score": 0
+          },
+          {
+            "id": "image-size-responsive",
+            "title": "Serves images with low resolution",
+            "description": "Image natural dimensions should be proportional to the display size and the pixel ratio to maximize image clarity. [Learn how to provide responsive images](https://web.dev/articles/serve-responsive-images).",
+            "score": 0
+          }
+        ]
+      },
+      "competitorPagespeed": null,
+      "competitors": [],
+      "aiReport": {
+        "growth_score": 74,
+        "summary": "Satorimethod already has a useful foundation, but a few slow or heavy page elements are likely making the experience feel less polished than it should.",
+        "ai_insight": "The simplest growth win is to make the first screen load faster and feel clearer. Once visitors can understand the page quickly, they are more likely to stay, trust the site, and take action.",
+        "metrics": {
+          "mobile_score": 74,
+          "desktop_score": 74,
+          "strongest_area": "Search visibility",
+          "weakest_area": "Mobile speed"
+        },
+        "score_prediction": {
+          "current": 74,
+          "potential": 92,
+          "rationale": "If the slowest page elements are cleaned up first, the site should feel faster and the overall score should rise noticeably."
+        },
+        "top_issues": [
+          {
+            "title": "Important parts of the page are loading too slowly",
+            "description": "Visitors may feel the page is slower than expected, which can reduce trust and increase drop-offs.",
+            "impact": "1.5 s",
+            "fix": "Reduce large images, videos, and heavy scripts near the top of the page so visitors see useful content faster.",
+            "impactLevel": "High",
+            "difficulty": "Medium",
+            "priority": 100,
+            "affectedMetric": "Reduce JavaScript execution time"
+          },
+          {
+            "title": "The page is carrying more weight than it needs to",
+            "description": "Visitors may feel the page is slower than expected, which can reduce trust and increase drop-offs.",
+            "impact": "This can make the website feel slower, reduce engagement, and weaken the first impression.",
+            "fix": "Remove or delay anything that is not needed immediately, so the main message loads first.",
+            "impactLevel": "High",
+            "difficulty": "Easy",
+            "priority": 88,
+            "affectedMetric": "Network dependency tree"
+          },
+          {
+            "title": "Layout shift culprits",
+            "description": "Layout shifts occur when elements move absent any user interaction. [Investigate the causes of layout shifts](https://developer.chrome.com/docs/performance/insights/cls-culprit), such as elements being added, removed, or their fonts changing as the page loads.",
+            "impact": "This can make the website feel slower, reduce engagement, and weaken the first impression.",
+            "fix": "Review layout shift culprits and simplify or delay whatever is slowing the page down.",
+            "impactLevel": "Medium",
+            "difficulty": "Easy",
+            "priority": 76,
+            "affectedMetric": "Layout shift culprits"
+          },
+          {
+            "title": "Forced reflow",
+            "description": "A forced reflow occurs when JavaScript queries geometric properties (such as offsetWidth) after styles have been invalidated by a change to the DOM state. This can result in poor performance. Learn more about [forced reflows](https://developer.chrome.com/docs/performance/insights/forced-reflow) and possible mitigations.",
+            "impact": "This can make the website feel slower, reduce engagement, and weaken the first impression.",
+            "fix": "Review forced reflow and simplify or delay whatever is slowing the page down.",
+            "impactLevel": "Medium",
+            "difficulty": "Easy",
+            "priority": 64,
+            "affectedMetric": "Forced reflow"
+          }
+        ],
+        "quick_wins": [
+          "Shrink large images so the page feels faster, especially on phones.",
+          "Delay extra scripts until after the main content becomes visible.",
+          "Rewrite Satorimethod's title and description so search users immediately understand the offer.",
+          "Make the headline and call-to-action clearer in the first screen people see."
+        ],
+        "priority_fixes": [
+          {
+            "fix": "Compress the largest images on key pages",
+            "impact": "High",
+            "difficulty": "Easy",
+            "priority": 95
+          },
+          {
+            "fix": "Delay extra scripts until after the page becomes usable",
+            "impact": "High",
+            "difficulty": "Medium",
+            "priority": 90
+          },
+          {
+            "fix": "Rewrite page titles and descriptions for clearer search appeal",
+            "impact": "Medium",
+            "difficulty": "Easy",
+            "priority": 84
+          },
+          {
+            "fix": "Review third-party widgets and remove low-value ones",
+            "impact": "Medium",
+            "difficulty": "Medium",
+            "priority": 78
+          }
+        ],
+        "step_by_step_plan": [
+          {
+            "title": "Review the first screen experience",
+            "description": "Review Satorimethod's homepage like a first-time visitor and note what feels slow or unclear."
+          },
+          {
+            "title": "Compress heavy visual assets",
+            "description": "Compress large images and videos, especially those shown near the top of the page."
+          },
+          {
+            "title": "Delay non-essential scripts",
+            "description": "Delay popups, trackers, and extra scripts until after the main content has loaded."
+          },
+          {
+            "title": "Clarify headline and metadata",
+            "description": "Rewrite the page title, description, and top headline so the main value is obvious in seconds."
+          }
+        ],
+        "seo_strategy": {
+          "titleTag": "Unlock The Power To Heal Every Area Of Your Life! | Satorimethod",
+          "metaDescription": "Banish physical, mental and emotional pain and attain profound wellbeing with the power of your own vital ENERGY!",
+          "keywords": [
+            "satorimethod",
+            "satori",
+            "method",
+            "unlock",
+            "power",
+            "heal"
+          ],
+          "contentAngle": "Lead with \"Unlock The Power To Heal Every Area Of Your Life!\" and support it with simple proof points, a clear call to action, and a faster page experience."
+        }
+      }
     }
   ]
 }

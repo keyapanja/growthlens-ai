@@ -6,7 +6,7 @@ import { ReportPdfDocument } from "@/lib/report-pdf-document";
 export const dynamic = "force-dynamic";
 
 export async function GET(
-  _: Request,
+  request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
@@ -16,7 +16,8 @@ export async function GET(
     return NextResponse.json({ error: "Report not found." }, { status: 404 });
   }
 
-  const pdfBuffer = await renderToBuffer(<ReportPdfDocument report={report} />);
+  const appUrl = new URL(request.url).origin;
+  const pdfBuffer = await renderToBuffer(<ReportPdfDocument report={report} appUrl={appUrl} />);
   const pdfBytes = new Uint8Array(pdfBuffer);
 
   return new NextResponse(pdfBytes, {

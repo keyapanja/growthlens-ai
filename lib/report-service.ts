@@ -10,6 +10,7 @@ export async function createOrRefreshReport(params: {
   competitorUrl?: string;
   competitorUrls?: string[];
   reportId?: string;
+  viewerId?: string;
 }) {
   const now = new Date().toISOString();
   const existing = params.reportId ? await getReportById(params.reportId) : null;
@@ -39,6 +40,7 @@ export async function createOrRefreshReport(params: {
   const report: StoredReport = {
     id: existing?.id ?? nanoid(10),
     shareId: existing?.shareId ?? nanoid(14),
+    viewerId: existing?.viewerId ?? params.viewerId ?? null,
     url: pagespeed.url,
     competitorUrl: competitorPagespeeds[0]?.url ?? null,
     competitorUrls: competitorPagespeeds.map((competitor) => competitor.url),

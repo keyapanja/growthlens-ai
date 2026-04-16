@@ -1,16 +1,20 @@
 ﻿"use client";
 
-import { useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight, BarChart3, Brain, Check, Grid2x2, LoaderCircle, Share2, Sparkles, Zap } from "lucide-react";
 import { StoredReport } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
 
-const progressSteps = [
-  "Fetching performance data...",
-  "Analyzing metrics...",
-  "Generating AI insights..."
-];
+function getProgressSteps(hasCompetitor: boolean) {
+  return [
+    "Checking live performance data for your website...",
+    hasCompetitor
+      ? "Comparing your website with the competitor you added..."
+      : "Reviewing speed, SEO, and user experience signals...",
+    "Writing your GrowthLens report with clear action steps..."
+  ];
+}
 
 const featureCards = [
   {
@@ -87,6 +91,7 @@ export function HomeClient({ recentReports }: { recentReports: StoredReport[] })
   const reports = getRecentAnalysisCards(recentReports);
   const hasExpandableHistory = reports.length > 3;
   const visibleReports = showAllHistory ? reports : reports.slice(0, 3);
+  const progressSteps = useMemo(() => getProgressSteps(Boolean(competitorUrl.trim())), [competitorUrl]);
 
   async function handleAnalyze(event: React.FormEvent) {
     event.preventDefault();
@@ -183,19 +188,10 @@ export function HomeClient({ recentReports }: { recentReports: StoredReport[] })
 
             <div className="mx-auto mt-4 min-h-10 max-w-3xl">
               {stepIndex !== null ? (
-                <div className="flex flex-wrap justify-center gap-2">
-                  {progressSteps.map((step, index) => (
-                    <div
-                      key={step}
-                      className={`rounded-full px-4 py-2 text-sm ${
-                        index <= stepIndex
-                          ? "bg-[#81ecff]/12 text-[#f8faff] ring-1 ring-[#81ecff]/20"
-                          : "bg-white/[0.03] text-white/35"
-                      }`}
-                    >
-                      {step}
-                    </div>
-                  ))}
+                <div className="flex justify-center">
+                  <div className="rounded-full bg-[#81ecff]/12 px-5 py-2 text-sm text-[#f8faff] ring-1 ring-[#81ecff]/20">
+                    {progressSteps[stepIndex] ?? progressSteps[progressSteps.length - 1]}
+                  </div>
                 </div>
               ) : (
                 <p className="text-sm text-[#b8bcc5]/60">This will take only a few minutes.</p>
@@ -397,7 +393,7 @@ export function HomeClient({ recentReports }: { recentReports: StoredReport[] })
           <div className="font-headline text-xl font-extrabold tracking-tighter text-[#f8faff]">GrowthLens AI</div>
           <div className="text-center md:ml-auto md:text-right">
             <p className="font-label text-[10px] font-bold uppercase tracking-[0.2em] text-[#b8bcc5]">
-              Copyright 2024 GrowthLens AI. The Synthetic Intelligence Architect.
+              Copyright 2026 GrowthLens AI. The Synthetic Intelligence Architect.
             </p>
           </div>
         </div>

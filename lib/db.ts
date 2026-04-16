@@ -7,6 +7,8 @@ type ReportRow = {
   id: string;
   shareid: string;
   shareId?: string;
+  viewerid?: string | null;
+  viewerId?: string | null;
   url: string;
   competitorurl: string | null;
   competitorUrl?: string | null;
@@ -52,6 +54,7 @@ function mapRow(row: ReportRow): StoredReport {
   return {
     id: row.id,
     shareId: row.shareid ?? row.shareId ?? "",
+    viewerId: row.viewerid ?? row.viewerId ?? null,
     url: row.url,
     competitorUrl: row.competitorurl ?? row.competitorUrl ?? null,
     competitorUrls: competitorUrlsJson
@@ -99,6 +102,7 @@ async function ensurePostgresSchema() {
         CREATE TABLE IF NOT EXISTS reports (
           id TEXT PRIMARY KEY,
           shareId TEXT NOT NULL UNIQUE,
+          viewerId TEXT,
           url TEXT NOT NULL,
           competitorUrl TEXT,
           competitorUrlsJson JSONB,
@@ -113,10 +117,16 @@ async function ensurePostgresSchema() {
 
       await db.sql`ALTER TABLE reports ADD COLUMN IF NOT EXISTS competitorUrlsJson JSONB;`;
       await db.sql`ALTER TABLE reports ADD COLUMN IF NOT EXISTS competitorsJson JSONB;`;
+      await db.sql`ALTER TABLE reports ADD COLUMN IF NOT EXISTS viewerId TEXT;`;
 
       await db.sql`
         CREATE INDEX IF NOT EXISTS reports_updatedAt_idx
         ON reports (updatedAt DESC);
+      `;
+
+      await db.sql`
+        CREATE INDEX IF NOT EXISTS reports_viewerId_updatedAt_idx
+        ON reports (viewerId, updatedAt DESC);
       `;
     })();
   }
@@ -169,11 +179,12 @@ export async function saveReport(report: StoredReport) {
     await ensurePostgresSchema();
     await db.sql`
       INSERT INTO reports (
-        id, shareId, url, competitorUrl, competitorUrlsJson, createdAt, updatedAt,
+        id, shareId, viewerId, url, competitorUrl, competitorUrlsJson, createdAt, updatedAt,
         pagespeedJson, competitorPagespeedJson, competitorsJson, aiReportJson
       ) VALUES (
         ${report.id},
         ${report.shareId},
+        ${report.viewerId ?? null},
         ${report.url},
         ${report.competitorUrl ?? null},
         ${JSON.stringify(report.competitorUrls ?? [])}::jsonb,
@@ -186,6 +197,7 @@ export async function saveReport(report: StoredReport) {
       )
       ON CONFLICT (id) DO UPDATE SET
         shareId = EXCLUDED.shareId,
+        viewerId = EXCLUDED.viewerId,
         url = EXCLUDED.url,
         competitorUrl = EXCLUDED.competitorUrl,
         competitorUrlsJson = EXCLUDED.competitorUrlsJson,
@@ -217,6 +229,7 @@ export async function getReportById(id: string) {
       SELECT
         id,
         shareId,
+        viewerId,
         url,
         competitorUrl,
         competitorUrlsJson::text AS competitorUrlsJson,
@@ -245,6 +258,7 @@ export async function getReportByShareId(shareId: string) {
       SELECT
         id,
         shareId,
+        viewerId,
         url,
         competitorUrl,
         competitorUrlsJson::text AS competitorUrlsJson,
@@ -266,13 +280,18 @@ export async function getReportByShareId(shareId: string) {
   return reports.find((report) => report.shareId === shareId) ?? null;
 }
 
-export async function getRecentReports(limit = 6): Promise<StoredReport[]> {
+export async function getRecentReports(viewerId?: string | null, limit = 6): Promise<StoredReport[]> {
+  if (!viewerId) {
+    return [];
+  }
+
   if (db) {
     await ensurePostgresSchema();
     const { rows } = await db.sql<ReportRow>`
       SELECT
         id,
         shareId,
+        viewerId,
         url,
         competitorUrl,
         competitorUrlsJson::text AS competitorUrlsJson,
@@ -283,6 +302,7 @@ export async function getRecentReports(limit = 6): Promise<StoredReport[]> {
         competitorsJson::text AS competitorsJson,
         aiReportJson::text AS aiReportJson
       FROM reports
+      WHERE viewerId = ${viewerId}
       ORDER BY updatedAt DESC
       LIMIT ${limit};
     `;
@@ -292,6 +312,7 @@ export async function getRecentReports(limit = 6): Promise<StoredReport[]> {
 
   const reports = await readLocalReports();
   return reports
+    .filter((report) => report.viewerId === viewerId)
     .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
     .slice(0, limit);
 }

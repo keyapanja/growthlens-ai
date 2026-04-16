@@ -28,7 +28,8 @@ export async function POST(
   try {
     const json = await request.json();
     const { email } = bodySchema.parse(json);
-    await sendReportEmail(report, email);
+    const appUrl = new URL(request.url).origin;
+    await sendReportEmail(report, email, appUrl);
 
     return NextResponse.json({ message: `Report sent to ${email}.` });
   } catch (error) {

@@ -140,6 +140,7 @@ export interface PageSpeedReport {
 export interface StoredReport {
   id: string;
   shareId: string;
+  viewerId?: string | null;
   url: string;
   competitorUrl?: string | null;
   competitorUrls?: string[];

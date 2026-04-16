@@ -33,8 +33,28 @@ type PageSpeedApiResponse = {
   };
 };
 
+function extractPageSpeedMessage(rawMessage: string) {
+  try {
+    const parsed = JSON.parse(rawMessage) as {
+      error?: {
+        message?: string;
+        errors?: Array<{ message?: string; reason?: string }>;
+      };
+    };
+
+    return (
+      parsed.error?.errors?.map((item) => item.message || item.reason).filter(Boolean).join(" ") ||
+      parsed.error?.message ||
+      rawMessage
+    );
+  } catch {
+    return rawMessage;
+  }
+}
+
 function getPageSpeedErrorMessage(strategy: DeviceType, status: number, rawMessage: string) {
-  const message = rawMessage.toLowerCase();
+  const normalizedRawMessage = extractPageSpeedMessage(rawMessage);
+  const message = normalizedRawMessage.toLowerCase();
 
   if (status === 429 || message.includes("quota exceeded") || message.includes("rateLimitExceeded".toLowerCase())) {
     return `PageSpeed quota exceeded for ${strategy}. The configured Google PageSpeed API key has hit its request limit, so the analysis cannot continue right now.`;
@@ -48,11 +68,15 @@ function getPageSpeedErrorMessage(strategy: DeviceType, status: number, rawMessa
     return `PageSpeed could not finish the ${strategy} test because the website stopped responding during analysis. This usually happens when the page is too heavy, blocks too long, or the target site temporarily fails to load. Please try again in a moment or test a different page from the same website.`;
   }
 
+  if (status >= 500 && message.includes("lighthouse")) {
+    return `PageSpeed could not complete the ${strategy} Lighthouse test for this website right now. This usually means the target site blocked, timed out, or failed during analysis. Please try again in a minute or test another page from the same website.`;
+  }
+
   if (status === 400 && message.includes("lighthouse")) {
     return `PageSpeed could not complete the ${strategy} test for this URL. Please double-check the website address and try again.`;
   }
 
-  return `PageSpeed request failed for ${strategy}. ${rawMessage}`;
+  return `PageSpeed request failed for ${strategy}. ${normalizedRawMessage}`;
 }
 
 function scoreFromCategory(
@@ -161,7 +185,7 @@ function buildDeviceSnapshot(
   };
 }
 
-async function fetchStrategy(url: string, strategy: DeviceType) {
+async function fetchStrategy(url: string, strategy: DeviceType, attempt = 1): Promise<PageSpeedApiResponse> {
   const apiKey = process.env.PAGESPEED_API_KEY;
   const apiBaseUrl =
     process.env.PAGESPEED_API_URL ??
@@ -193,6 +217,19 @@ async function fetchStrategy(url: string, strategy: DeviceType) {
 
   if (!response.ok) {
     const rawMessage = await response.text();
+    const extractedMessage = extractPageSpeedMessage(rawMessage).toLowerCase();
+
+    if (
+      attempt < 2 &&
+      response.status >= 500 &&
+      (extractedMessage.includes("lighthouse") ||
+        extractedMessage.includes("internal error") ||
+        extractedMessage.includes("something went wrong"))
+    ) {
+      await new Promise((resolve) => setTimeout(resolve, 900));
+      return fetchStrategy(url, strategy, attempt + 1);
+    }
+
     throw new Error(getPageSpeedErrorMessage(strategy, response.status, rawMessage));
   }
 

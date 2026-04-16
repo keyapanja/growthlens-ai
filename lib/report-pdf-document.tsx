@@ -276,8 +276,7 @@ function buildComparisonRows(report: StoredReport) {
   });
 }
 
-export function ReportPdfDocument({ report }: { report: StoredReport }) {
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+export function ReportPdfDocument({ report, appUrl }: { report: StoredReport; appUrl: string }) {
   const comparedSites = getComparedSites(report);
   const comparisonRows = buildComparisonRows(report);
   const mobile = report.pagespeed.mobile;

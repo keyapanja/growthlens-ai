@@ -138,6 +138,45 @@ function buildCompetitorSummary(report: StoredReport) {
   return `${displayUrl(report.url)} is currently trailing ${displayUrl(leader.url)} in the comparison set, with the largest opportunity tied to speed consistency and how quickly the core message becomes clear to visitors.`;
 }
 
+function buildSimpleIssueDetails(issue: StoredReport["aiReport"]["top_issues"][number]) {
+  const lowerTitle = issue.title.toLowerCase();
+  const lowerFix = issue.fix.toLowerCase();
+
+  if (lowerTitle.includes("slow") || lowerTitle.includes("speed") || lowerTitle.includes("lcp")) {
+    return {
+      whyItMatters:
+        "This part of the page shows up too slowly, so people may leave before they even read what the page is about.",
+      whatToDo:
+        "Make the biggest image, video, or page section load first, and move extra scripts or heavy files to later."
+    };
+  }
+
+  if (lowerTitle.includes("image") || lowerFix.includes("image")) {
+    return {
+      whyItMatters:
+        "Big images make the page feel heavy and slow, especially on phones or weak internet connections.",
+      whatToDo:
+        "Shrink large images, use lighter file types, and only load the images people need to see first."
+    };
+  }
+
+  if (lowerTitle.includes("script") || lowerFix.includes("script")) {
+    return {
+      whyItMatters:
+        "Too many scripts can make the page busy and slow, like trying to do too many jobs at the same time.",
+      whatToDo:
+        "Keep only the important scripts at the start and load the extra ones after the main page content is visible."
+    };
+  }
+
+  return {
+    whyItMatters:
+      "This issue makes the page harder to load, read, or trust, so some visitors may leave before taking action.",
+    whatToDo:
+      "Clean up this part first, keep the important content easy to see, and remove anything that slows the page down."
+  };
+}
+
 export function ReportDashboard({ initialReport }: { initialReport: StoredReport }) {
   const [report, setReport] = useState(initialReport);
   const [deviceMode, setDeviceMode] = useState<DeviceMode>("mobile");
@@ -553,7 +592,7 @@ export function ReportDashboard({ initialReport }: { initialReport: StoredReport
                     return (
                       <div key={issue.title} className="flex items-start gap-6 rounded-3xl border border-[#44484f]/10 bg-[#1b2028] p-6">
                         <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${accent}`}><Icon className="h-5 w-5" /></div>
-                        <div className="flex-1"><div className="mb-2 flex flex-wrap items-center gap-3"><h4 className="font-bold">{issue.title}</h4><span className={`rounded-lg px-2 py-0.5 text-[12px] font-bold uppercase tracking-[0.12em] ${issue.impactLevel === "High" ? "bg-[#ff716c]/20 text-[#ff716c]" : "bg-[#a68cff]/20 text-[#a68cff]"}`}>{issue.impactLevel} Impact</span></div><p className="mb-4 text-[14px] leading-relaxed text-[#a8abb3]">{issue.description}</p>{expandedIssue === index ? <div className="mb-4 rounded-2xl border border-[#44484f]/20 bg-black/40 p-4 text-[14px] leading-6 text-[#d8caff]"><p><span className="font-bold text-[#81ecff]">Impact:</span> {issue.impact}</p><p className="mt-2"><span className="font-bold text-[#81ecff]">Recommended fix:</span> {issue.fix}</p></div> : null}<button type="button" onClick={() => setExpandedIssue(expandedIssue === index ? null : index)} className="group inline-flex items-center gap-1 font-label text-[12px] uppercase tracking-[0.2em] text-[#81ecff]">{expandedIssue === index ? "Hide Details" : "See Detailed Fix"}<ChevronRight className={`h-3.5 w-3.5 transition-transform ${expandedIssue === index ? "rotate-90" : "group-hover:translate-x-1"}`} /></button></div>
+                        <div className="flex-1"><div className="mb-2 flex flex-wrap items-center gap-3"><h4 className="font-bold">{issue.title}</h4><span className={`rounded-lg px-2 py-0.5 text-[12px] font-bold uppercase tracking-[0.12em] ${issue.impactLevel === "High" ? "bg-[#ff716c]/20 text-[#ff716c]" : "bg-[#a68cff]/20 text-[#a68cff]"}`}>{issue.impactLevel} Impact</span></div><p className="mb-4 text-[14px] leading-relaxed text-[#a8abb3]">{issue.description}</p>{expandedIssue === index ? <div className="mb-4 rounded-2xl border border-[#44484f]/20 bg-black/40 p-4 text-[14px] leading-6 text-[#d8caff]"><p><span className="font-bold text-[#81ecff]">Why this matters:</span> {buildSimpleIssueDetails(issue).whyItMatters}</p><p className="mt-2"><span className="font-bold text-[#81ecff]">Simple fix:</span> {buildSimpleIssueDetails(issue).whatToDo}</p></div> : null}<button type="button" onClick={() => setExpandedIssue(expandedIssue === index ? null : index)} className="group inline-flex items-center gap-1 font-label text-[12px] uppercase tracking-[0.2em] text-[#81ecff]">{expandedIssue === index ? "Hide Details" : "See Detailed Fix"}<ChevronRight className={`h-3.5 w-3.5 transition-transform ${expandedIssue === index ? "rotate-90" : "group-hover:translate-x-1"}`} /></button></div>
                       </div>
                     );
                   })}
@@ -595,7 +634,7 @@ export function ReportDashboard({ initialReport }: { initialReport: StoredReport
             <footer className="border-t border-[#44484f]/5 pb-10 pt-12">
               <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
                 <div className="font-headline text-xl font-extrabold tracking-tighter text-[#f8faff]">GrowthLens AI</div>
-                <div className="font-label text-[12px] uppercase tracking-[0.2em] text-[#a8abb3]/50 md:ml-auto">Copyright 2024 GrowthLens AI. All Intelligence Reserved.</div>
+                <div className="font-label text-[12px] uppercase tracking-[0.2em] text-[#a8abb3]/50 md:ml-auto">Copyright 2026 GrowthLens AI. All Intelligence Reserved.</div>
               </div>
             </footer>
           </div>

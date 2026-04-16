@@ -11,6 +11,13 @@ export function canSendEmail() {
   );
 }
 
+function getSenderAddress() {
+  const from = process.env.EMAIL_FROM;
+  if (!from) return undefined;
+  if (from.includes("<")) return from;
+  return `GrowthLens AI <${from}>`;
+}
+
 function displayUrl(url: string) {
   return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
 }
@@ -70,7 +77,7 @@ function comparisonRows(report: StoredReport) {
   });
 }
 
-export async function sendReportEmail(report: StoredReport, recipient: string) {
+export async function sendReportEmail(report: StoredReport, recipient: string, appUrl: string) {
   if (!canSendEmail()) {
     throw new Error("Email sending is not configured on this deployment.");
   }
@@ -85,7 +92,6 @@ export async function sendReportEmail(report: StoredReport, recipient: string) {
     }
   });
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
   const shareLink = `${appUrl}/share/${report.shareId}`;
   const pdfLink = `${appUrl}/api/reports/${report.id}/pdf`;
   const comparedSites = getComparedSites(report);
@@ -93,7 +99,7 @@ export async function sendReportEmail(report: StoredReport, recipient: string) {
   const rows = comparisonRows(report);
 
   await transporter.sendMail({
-    from: process.env.EMAIL_FROM,
+    from: getSenderAddress(),
     to: recipient,
     subject: `GrowthLens AI report for ${displayUrl(report.url)}`,
     html: `
@@ -106,7 +112,7 @@ export async function sendReportEmail(report: StoredReport, recipient: string) {
               .map(
                 (site, index) => `
                   <span style="font-size:20px;font-weight:700;color:${index === 0 ? "#81ecff" : "#d8caff"};">${displayUrl(site.url)}</span>
-                  ${index < comparedSites.length - 1 ? '<span style="padding:6px 12px;border-radius:999px;background:#1d2330;border:1px solid rgba(68,72,79,.3);font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#a68cff;">vs</span>' : ''}
+                  ${index < comparedSites.length - 1 ? '<span style="display:inline-block;margin:0 4px;padding:6px 12px;border-radius:999px;background:#1d2330;border:1px solid rgba(68,72,79,.3);font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#a68cff;">vs</span>' : ''}
                 `
               )
               .join("")}
@@ -141,7 +147,7 @@ export async function sendReportEmail(report: StoredReport, recipient: string) {
                     <th align="left" style="padding:8px 12px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#a8abb3;">Metric</th>
                     ${comparedSites
                       .map(
-                        (site, index) => `<th align="left" style="padding:8px 12px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:${index === 0 ? "#81ecff" : "#a8abb3"};">${index === 0 ? "Your Site" : `<a href="${site.url}" style="color:#a8abb3;text-decoration:none;">${displayUrl(site.url)}</a>`}</th>`
+                        (site, index) => `<th align="left" style="padding:8px 12px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:${index === 0 ? "#81ecff" : "#a8abb3"};">${index === 0 ? "Your Site" : `<a href="${site.url}" style="color:#a8abb3;text-decoration:none;border-bottom:none;">${displayUrl(site.url)}</a>`}</th>`
                       )
                       .join("")}
                     <th align="left" style="padding:8px 12px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#a8abb3;">Trend</th>
@@ -190,7 +196,7 @@ export async function sendReportEmail(report: StoredReport, recipient: string) {
             <a href="${pdfLink}" style="display:inline-block;background:#20262f;color:#f1f3fc;text-decoration:none;border:1px solid rgba(68,72,79,.45);border-radius:999px;padding:14px 20px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;">Download PDF</a>
           </div>
 
-          <div style="border-top:1px solid rgba(68,72,79,.3);padding-top:18px;color:#72757d;font-size:12px;">Copyright 2024 GrowthLens AI. All Intelligence Reserved.</div>
+          <div style="border-top:1px solid rgba(68,72,79,.3);padding-top:18px;color:#72757d;font-size:12px;">Copyright 2026 GrowthLens AI. All Intelligence Reserved.</div>
         </div>
       </div>
     `
